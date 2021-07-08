@@ -5,7 +5,7 @@ _<p align="center">Deepsense Confidential</p>_
 
 > An android SDK for deepsense analyze API. 
 
-`android-ios` is the android library that replicates Deepsense's core javascript SDK to be used in android applications. The library can handle all data capture necessary to run Deepsense's biometric algorithms and returns the result to the parent application.
+`android-sdk` is the android library that replicates Deepsense's core javascript SDK to be used in android applications. The library can handle all data capture necessary to run Deepsense's biometric algorithms and returns the result to the parent application.
 
 1. [Installation](#1-installation)
 2. [Getting Started](#2-getting-started)
