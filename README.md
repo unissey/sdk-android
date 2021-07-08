@@ -195,7 +195,7 @@ The SDK can also join a reference picture to the api call to enable face compari
 | DsCameraFragment::gdprConsent        | Boolean             | Indicate if the user has given consent for use and storage of its personal data. (cf. [GDPR](https://gdpr.eu/))      | false                                              |
 | DSCameraFragment::apiKey             | String              | Api Key to use when requesting deepsense's analyze API                                    | ""                                                 |
 | DSCameraFragment::analyseBaseUrl     | String              | Base URI to use when requesting deepsense's analyze API                                   | <deepsense analyze api url based on environnement> |
-| DSCameraFragment::environment        | DeepensEnvironments | Deepsense API environment to use for request to analyze API                               | DeepensEnvironments::STAGING                       |
+| DSCameraFragment::environment        | DeepsenseEnvironments | Deepsense API environment to use for request to analyze API                               | DeepsenseEnvironments::STAGING                       |
 | DSCameraFragment::retriedSessionID   | String?             | Session ID of the retried session                                                         | null                                               |
 
 ## Functions
@@ -217,7 +217,7 @@ The SDK can also join a reference picture to the api call to enable face compari
   - Function
   - `(outputStream: OutputStream) -> Unit`
   - Contains the provided output stream to retrieve the video
-- DeepensEnvironments
+- DeepsenseEnvironments
   - enum
   - values:
     - TEST
