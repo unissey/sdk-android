@@ -3,7 +3,7 @@ _<p align="center">Deepsense Confidential</p>_
 
 # Deepsense Android SDK
 
-> An android SDK for deepsense analyze API. 
+> An android SDK for Deepsense's analyze API. 
 
 `android-sdk` is the android library that replicates Deepsense's core javascript SDK to be used in android applications. The library can handle all data capture necessary to run Deepsense's biometric algorithms and returns the result to the parent application.
 
@@ -46,17 +46,17 @@ Now your all set 🔥 !
 
 # 2. Getting Started
 
-## Requierements
+## Requirements 
 This package has some project level requierements:
 - This project uses [androidX](https://developer.android.com/jetpack/androidx)
 - The host project must use [API 21](https://developer.android.com/studio/releases/platforms#5.0) and later.
 - [View binding](https://developer.android.com/topic/libraries/view-binding) must be enabled.
 - Using [androidx.activity](https://developer.android.com/jetpack/androidx/releases/activity) and [androidx.fragment](https://developer.android.com/jetpack/androidx/releases/fragment) is advised. 
 
-## Common installation
+## Common installations
 There are 3 main uses cases to our SDK described below. One where the video is captured and sent back to you for your own processing and the others where the video is directly sent to our API.
 ### 2.1 Video Capture Use Case
-If you do not wish to send the video to the analysis API right away, you must simply define the `setOnAnalysisResultListener` callback to receive the video captured by the SDK, `doesUseAPI` to `false`, and an `outputStream` be provided to record the video in. In this case other api related parameters are unnecessary.
+If you do not wish to send the video to the Deepsense's analyze API right away, you must simply define the `setOnAnalysisResultListener` callback to receive the video captured by the SDK, `doesUseAPI` to `false`, and an `outputStream` be provided to record the video in. In this case other api related parameters are unnecessary.
 > Note: the ouput stream is **not** closed by the sdk. 
 ```xml
 <!-- <project>/src/main/res/layout/mainActivity.xml -->
@@ -102,7 +102,7 @@ If you do not wish to send the video to the analysis API right away, you must si
     }
 ```
 ### 2.2 Api Call Use Case
-The SDK can make the call to our video analysis API automatically after capturing the video if you specify the appropriate parameters.
+The SDK can make the call to Deepsense's analyze API automatically after capturing the video if you specify the appropriate parameters.
 ```xml
 <!-- <project>/src/main/res/layout/mainActivity.xml -->
 <!-- ... -->
@@ -191,11 +191,11 @@ The SDK can also join a reference picture to the api call to enable face compari
 |--------------------------------------|---------------------|-------------------------------------------------------------------------------------------|----------------------------------------------------|
 | DSCameraFragment::isReady            | Boolean (readonly)  | Indicate if the fragment is ready                                                         |                                                    |
 | DSCameraFragment::isFaceMatchEnabled | Boolean (readonly)  | Indicate if the analyze will do face comparison or not                                    |                                                    |
-| DSCameraFragment::doesUseAPI         | Boolean             | Indicate if the fragment will automatically call Deepsense analyze API or not. (cf. [2.2 Api Call Use Case](#2.2-Api-Call-Use-Case)) | false                                              |
+| DSCameraFragment::doesUseAPI         | Boolean             | Indicate if the fragment will automatically call Deepsense's analyze API or not. (cf. [2.2 Api Call Use Case](#2.2-Api-Call-Use-Case)) | false                                              |
 | DsCameraFragment::gdprConsent        | Boolean             | Indicate if the user has given consent for use and storage of its personal data. (cf. [GDPR](https://gdpr.eu/))      | false                                              |
-| DSCameraFragment::apiKey             | String              | Api Key to use when requesting deepsense's analyze API                                    | ""                                                 |
-| DSCameraFragment::analyseBaseUrl     | String              | Base URI to use when requesting deepsense's analyze API                                   | <deepsense analyze api url based on environnement> |
-| DSCameraFragment::environment        | DeepsenseEnvironments | Deepsense API environment to use for request to analyze API                               | DeepsenseEnvironments::STAGING                       |
+| DSCameraFragment::apiKey             | String              | Api Key to use when requesting Deepsense's analyze API                                    | ""                                                 |
+| DSCameraFragment::analyseBaseUrl     | String              | Base URL to use when requesting Deepsense's analyze API                                   | <deepsense analyze api url based on environnement> |
+| DSCameraFragment::environment        | DeepsenseEnvironments | Deepsense API environment to use for request to Deepsense's analyze API                              | DeepsenseEnvironments::STAGING                       |
 | DSCameraFragment::retriedSessionID   | String?             | Session ID of the retried session                                                         | null                                               |
 
 ## Functions
