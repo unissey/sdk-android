@@ -1,11 +1,11 @@
-_<p align="center">Deepsense Confidential</p>_
-![logo](https://user-images.githubusercontent.com/14275989/73751192-e1433f00-475e-11ea-853d-50952fb27862.png)
+_<p align="center">Unissey Confidential</p>_
+![logo](https://user-images.githubusercontent.com/2079561/134871554-4682d336-60a0-48d1-9dd3-6e8330e6e013.png)
 
-# Deepsense Android SDK
+# Unissey Android SDK
 
-> An android SDK for Deepsense's analyze API. 
+> An android SDK for Unissey's analyze API.
 
-`android-sdk` is the android library that replicates Deepsense's core javascript SDK to be used in android applications. The library can handle all data capture necessary to run Deepsense's biometric algorithms and returns the result to the parent application.
+`android-sdk` is the android library that replicates Unissey's core javascript SDK to be used in android applications. The library can handle all data capture necessary to run Unissey's biometric algorithms and returns the result to the parent application.
 
 1. [Installation](#1-installation)
 2. [Getting Started](#2-getting-started)
@@ -24,7 +24,7 @@ Start by importing our [Github repository](https://github.com/features/packages)
 repositories {
     maven {
         name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/thedeepsense/sdk-android")
+        url = uri("https://maven.pkg.github.com/unissey/sdk-android")
         credentials {
             username = project.findProperty("gpr.user") as String ?: System.getenv("<GITHUB_USERNAME_ENV_VARIABLE>") // Github username
             password = project.findProperty("gpr.key") as String ?: System.getenv("<GITHUB_PAT_ENV_VARIABLE>") // Github personal access token
@@ -56,7 +56,7 @@ This package has some project level requierements:
 ## Common installations
 There are 3 main uses cases to our SDK described below. One where the video is captured and sent back to you for your own processing and the others where the video is directly sent to our API.
 ### 2.1 Video Capture Use Case
-If you do not wish to send the video to the Deepsense's analyze API right away, you must simply define the `setOnAnalysisResultListener` callback to receive the video captured by the SDK, `doesUseAPI` to `false`, and an `outputStream` be provided to record the video in. In this case other api related parameters are unnecessary.
+If you do not wish to send the video to the Unissey's analyze API right away, you must simply define the `setOnAnalysisResultListener` callback to receive the video captured by the SDK, `doesUseAPI` to `false`, and an `outputStream` be provided to record the video in. In this case other api related parameters are unnecessary.
 > Note: the ouput stream is **not** closed by the sdk. 
 ```xml
 <!-- <project>/src/main/res/layout/mainActivity.xml -->
@@ -102,7 +102,7 @@ If you do not wish to send the video to the Deepsense's analyze API right away, 
     }
 ```
 ### 2.2 Api Call Use Case
-The SDK can make the call to Deepsense's analyze API automatically after capturing the video if you specify the appropriate parameters.
+The SDK can make the call to Unissey's analyze API automatically after capturing the video if you specify the appropriate parameters.
 ```xml
 <!-- <project>/src/main/res/layout/mainActivity.xml -->
 <!-- ... -->
@@ -191,11 +191,11 @@ The SDK can also join a reference picture to the api call to enable face compari
 |--------------------------------------|---------------------|-------------------------------------------------------------------------------------------|----------------------------------------------------|
 | DSCameraFragment::isReady            | Boolean (readonly)  | Indicate if the fragment is ready                                                         |                                                    |
 | DSCameraFragment::isFaceMatchEnabled | Boolean (readonly)  | Indicate if the analyze will do face comparison or not                                    |                                                    |
-| DSCameraFragment::doesUseAPI         | Boolean             | Indicate if the fragment will automatically call Deepsense's analyze API or not. (cf. [2.2 Api Call Use Case](#2.2-Api-Call-Use-Case)) | false                                              |
+| DSCameraFragment::doesUseAPI         | Boolean             | Indicate if the fragment will automatically call Unissey's analyze API or not. (cf. [2.2 Api Call Use Case](#2.2-Api-Call-Use-Case)) | false                                              |
 | DsCameraFragment::gdprConsent        | Boolean             | Indicate if the user has given consent for use and storage of its personal data. (cf. [GDPR](https://gdpr.eu/))      | false                                              |
-| DSCameraFragment::apiKey             | String              | Api Key to use when requesting Deepsense's analyze API                                    | ""                                                 |
-| DSCameraFragment::analyseBaseUrl     | String              | Base URL to use when requesting Deepsense's analyze API                                   | <deepsense analyze api url based on environnement> |
-| DSCameraFragment::environment        | DeepsenseEnvironments | Deepsense API environment to use for request to Deepsense's analyze API                              | DeepsenseEnvironments::STAGING                       |
+| DSCameraFragment::apiKey             | String              | Api Key to use when requesting Unissey's analyze API                                    | ""                                                 |
+| DSCameraFragment::analyseBaseUrl     | String              | Base URL to use when requesting Unissey's analyze API                                   | <unissey analyze api url based on environnement> |
+| DSCameraFragment::environment        | DeepsenseEnvironments | Unissey API environment to use for request to Unissey's analyze API                              | DeepsenseEnvironments::STAGING                       |
 | DSCameraFragment::retriedSessionID   | String?             | Session ID of the retried session                                                         | null                                               |
 
 ## Functions
@@ -229,7 +229,7 @@ The SDK can also join a reference picture to the api call to enable face compari
 Some style attributes will modify the look ok the SDK:
 - colorPrimary (primary color (buttons, progress bar...))
 - overlayTextColor (color of the text on the overlay)
-- overlayLogoBackgroundTint (color of deepsense logo on the overlay)
+- overlayLogoBackgroundTint (color of Unissey logo on the overlay)
 - overlayColor (color of the overlay)
 
 # 4. About 
@@ -242,8 +242,8 @@ Some style attributes will modify the look ok the SDK:
 
 ## Support
 
-`tech@thedeepsense.co`
+`tech@unissey.com`
 
 ## License / Copyright
 
-This SDK is distributed under Deepsense license agreement
+This SDK is distributed under Unissey license agreement
