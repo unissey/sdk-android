@@ -7,10 +7,10 @@ import android.util.Log
 import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.deepsense.dssdk.AnalyseResults
-import com.deepsense.dssdk.DsCameraFragment
-import com.deepsense.dssdk.api.DeepensEnvironments
 import com.google.android.material.snackbar.Snackbar
+import com.unissey.sdk.AnalyseResults
+import com.unissey.sdk.DsCameraFragment
+import com.unissey.sdk.api.DeepsenseEnvironment
 import java.io.ByteArrayOutputStream
 import java.lang.Error
 
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         const val API_KEY = "<your api key>"
         const val IS_API_ENABLED = true
         const val IS_GDPR_CONSENT_GIVEN = true
-        val DS_ENV = DeepensEnvironments.TEST
+        val DS_ENV = DeepsenseEnvironment.TEST
     }
 
     private lateinit var sdkFragment: DsCameraFragment
