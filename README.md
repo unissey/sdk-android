@@ -1,11 +1,10 @@
-_<p align="center">Unissey Confidential</p>_
 ![logo](https://user-images.githubusercontent.com/2079561/134871554-4682d336-60a0-48d1-9dd3-6e8330e6e013.png)
 
 # Unissey Android SDK
 
 > An android SDK for Unissey's analyze API.
 
-`android-sdk` is the android library that replicates Unissey's core javascript SDK to be used in android applications. The library can handle all data capture necessary to run Unissey's biometric algorithms and returns the result to the parent application.
+`unissey-sdk` is the android library that replicates Unissey's core javascript SDK to be used in android applications. The library can handle all data capture necessary to run Unissey's biometric algorithms and returns the result to the parent application.
 
 1. [Installation](#1-installation)
 2. [Getting Started](#2-getting-started)
@@ -14,10 +13,7 @@ _<p align="center">Unissey Confidential</p>_
 
 # 1. Installation
 
-*You must have access to `android-sdk` repository and have genereated a [personnal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) with `repo` and `read:packages` persmissions.*
-
-Start by importing our [Github repository](https://github.com/features/packages) in your project's `build.gradle` using your Github username and [personnal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
-
+Start by importing our [Github repository](https://github.com/features/packages) in your project's `build.gradle`
 
 ```groovy
 // <project>/build.gradle
@@ -25,10 +21,6 @@ repositories {
     maven {
         name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/unissey/sdk-android")
-        credentials {
-            username = project.findProperty("gpr.user") as String ?: System.getenv("<GITHUB_USERNAME_ENV_VARIABLE>") // Github username
-            password = project.findProperty("gpr.key") as String ?: System.getenv("<GITHUB_PAT_ENV_VARIABLE>") // Github personal access token
-        }
     }
 }
 ```
@@ -38,7 +30,7 @@ Next import our package:
 // <project>/build.gradle
 dependencies {
     // ...
-    implementation "com.deepsense:dssdk:<version>"
+    implementation "com.unissey:unissey-sdk:<version>"
 }
 ```
 
@@ -63,7 +55,7 @@ If you do not wish to send the video to the Unissey's analyze API right away, yo
 <!-- ... -->
 <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_holder"
-        android:name="com.deepsense.dssdk.DsCameraFragment"
+        android:name="com.unissey.sdk.DsCameraFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:tag="DSCameraFragmentHolder">
@@ -108,7 +100,7 @@ The SDK can make the call to Unissey's analyze API automatically after capturing
 <!-- ... -->
 <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_holder"
-        android:name="com.deepsense.dssdk.DsCameraFragment"
+        android:name="com.unissey.sdk.DsCameraFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:tag="DSCameraFragmentHolder">
@@ -142,13 +134,13 @@ The SDK can make the call to Unissey's analyze API automatically after capturing
 ```
 
 ### 2.3 Api call with face comparison use case
-The SDK can also join a reference picture to the api call to enable face comparision.
+The SDK can also join a reference picture to the api call to enable face comparison.
 ```xml
 <!-- <project>/src/main/res/layout/mainActivity.xml -->
 <!-- ... -->
 <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_holder"
-        android:name="com.deepsense.dssdk.DsCameraFragment"
+        android:name="com.unissey.sdk.DsCameraFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:tag="DSCameraFragmentHolder">
@@ -232,13 +224,7 @@ Some style attributes will modify the look ok the SDK:
 - overlayLogoBackgroundTint (color of Unissey logo on the overlay)
 - overlayColor (color of the overlay)
 
-# 4. About 
-## Versions
-
-| Version       | Date       | Description            |
-| ------------- | ---------- | ---------------------- |
-| 0.1.0-alpha   | 2021-05-12 | initial release        |
-
+# 4. About
 
 ## Support
 
