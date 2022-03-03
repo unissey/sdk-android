@@ -24,10 +24,6 @@ repositories {
     maven {
         name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/unissey/sdk-android")
-        credentials {
-            username = project.findProperty("gpr.user") as String ?: System.getenv("<GITHUB_USERNAME_ENV_VARIABLE>") // Github username
-            password = project.findProperty("gpr.key") as String ?: System.getenv("<GITHUB_PAT_ENV_VARIABLE>") // Github personal access token
-        }
     }
 }
 ```
@@ -231,13 +227,7 @@ Some style attributes will modify the look ok the SDK:
 - overlayLogoBackgroundTint (color of Unissey logo on the overlay)
 - overlayColor (color of the overlay)
 
-# 4. About 
-## Versions
-
-| Version       | Date       | Description            |
-| ------------- | ---------- | ---------------------- |
-| 0.1.0-alpha   | 2021-05-12 | initial release        |
-
+# 4. About
 
 ## Support
 
