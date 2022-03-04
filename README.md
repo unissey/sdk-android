@@ -13,7 +13,9 @@
 
 # 1. Installation
 
-Start by importing our [Github repository](https://github.com/features/packages) in your project's `build.gradle`
+You must have access to `sdk-android` repository and have generated a [personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) with repo and read:packages permissions.
+
+Start by importing our [Github repository](https://github.com/features/packages) in your project's `build.gradle` using your Github username and [personnal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
 
 ```groovy
 // <project>/build.gradle
@@ -21,6 +23,10 @@ repositories {
     maven {
         name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/unissey/sdk-android")
+        credentials {
+          username = project.findProperty("gpr.user") as String ?: System.getenv("<GITHUB_USERNAME_ENV_VARIABLE>") // Github username
+          password = project.findProperty("gpr.key") as String ?: System.getenv("<GITHUB_PERSONAL_ACCESS_TOKEN_ENV_VARIABLE>") // Github personal access token
+        }
     }
 }
 ```
