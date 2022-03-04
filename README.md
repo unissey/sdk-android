@@ -15,7 +15,7 @@
 
 You must have access to `sdk-android` repository and have generated a [personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) with repo and read:packages permissions.
 
-Start by importing our [Github repository](https://github.com/features/packages) in your project's `build.gradle` using your Github username and [personnal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
+Start by importing our [Github repository](https://github.com/unissey/sdk-android) in your project's `build.gradle` using your Github username and [personnal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
 
 ```groovy
 // <project>/build.gradle
