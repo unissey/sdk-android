@@ -1,26 +1,24 @@
 package co.deepsense.android_sample_app
 
+import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.google.android.material.snackbar.Snackbar
 import com.unissey.sdk.AnalyseResults
 import com.unissey.sdk.DsCameraFragment
-import com.unissey.sdk.api.DeepsenseEnvironment
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.lang.Error
 
 class MainActivity : AppCompatActivity() {
     companion object {
         const val SDK_FRAGMENT_TAG = "DSCameraFragmentHolder"
-        const val API_KEY = "<your api key>"
-        const val IS_API_ENABLED = true
-        const val IS_GDPR_CONSENT_GIVEN = true
-        val DS_ENV = DeepsenseEnvironment.TEST
+        const val IS_API_ENABLED = false
     }
 
     private lateinit var sdkFragment: DsCameraFragment
@@ -38,19 +36,26 @@ class MainActivity : AppCompatActivity() {
             takeReferencePictureContract.launch(null)
         }
 
-        sdkFragment.apply {
-            apiKey = API_KEY
-            environment = DS_ENV
-            doesUseAPI = IS_API_ENABLED
-            gdprConsent = IS_GDPR_CONSENT_GIVEN
+        val out = ByteArrayOutputStream()
 
-            setOnAnalysisResultListener { results, err ->
-                val resultMessageID = selectAnalysisResultMessageID(results, err)
-                resetFaceMatch()
-                Snackbar.make(requireView(), resultMessageID, Snackbar.LENGTH_LONG).show()
+        sdkFragment.apply {
+            doesUseAPI = IS_API_ENABLED
+
+            setOutputStream(out)
+
+            setOnRecordEndedListener {
+                out.close()
+
+                val mediaFile = File(activity?.filesDir, "uni_sample_plackback.mp4")
+                mediaFile.writeBytes(out.toByteArray())
+                val mediaUri = Uri.fromFile(mediaFile)
+
+                val intent = Intent(activity, VideoPlay::class.java)
+                intent.putExtra("video_path", mediaUri.toString())
+
+                activity?.startActivity(intent)
             }
         }
-
     }
 
     private fun selectAnalysisResultMessageID(result: AnalyseResults, err: Throwable?): Int {
