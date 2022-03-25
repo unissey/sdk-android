@@ -4,4 +4,6 @@
     <string name="activity_main_analysis_bad_facematching">Analysis failed: bad face comparison</string>
     <string name="activity_main_analysis_bad_liveness">Analysis failed: bad liveness</string>
     <string name="activity_main_analysis_error">Analysis failed: unexpected error</string>
+    <string name="replay">Replay</string>
+    <string name="retry">Retry</string>
 </resources>
