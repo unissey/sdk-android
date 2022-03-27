@@ -73,11 +73,13 @@ class MainActivity : AppCompatActivity() {
         return R.string.activity_main_analysis_successful
     }
 
-    private fun prepareTakeReferencePictureContract(): ActivityResultLauncher<Void> {
+    private fun prepareTakeReferencePictureContract(): ActivityResultLauncher<Void?> {
         return registerForActivityResult(ActivityResultContracts.TakePicturePreview()) {
             kotlin.runCatching {
-                val pictureBytes = compressBitmapToJPEGBytes(it)
-                sdkFragment.setReferencePicture(pictureBytes)
+                val pictureBytes = it?.let { it1 -> compressBitmapToJPEGBytes(it1) }
+                if (pictureBytes != null) {
+                    sdkFragment.setReferencePicture(pictureBytes)
+                }
                 runOnUiThread { findViewById<ImageButton>(R.id.reference_picture_button).setImageBitmap(it) }
             }.onFailure { err ->
                 Log.e("SelectImageSource", "Error: $err", err)

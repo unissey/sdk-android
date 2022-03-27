@@ -12,7 +12,7 @@
         <activity
             android:name=".VideoPlay"
             android:exported="true" />
-        <activity android:name=".MainActivity">
+        <activity android:name="co.deepsense.android_sample_app.MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
