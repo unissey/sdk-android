@@ -272,6 +272,10 @@ Some style attributes will modify the look ok the SDK:
 
 # 4. About
 
+## Versions
+
+* [2.0.5](https://github.com/unissey/sdk-android/packages/1234777?version=2.0.5)
+
 ## Support
 
 `tech@unissey.com`
