@@ -53,9 +53,20 @@ This package has some project level requierements:
 
 ## Common installations
 There are 3 main uses cases to our SDK described below. One where the video is captured and sent back to you for your own processing and the others where the video is directly sent to our API.
+
 ### 2.1 Video Capture Use Case
-If you do not wish to send the video to the Unissey's analyze API right away, you must simply define the `setOnAnalysisResultListener` callback to receive the video captured by the SDK, `doesUseAPI` to `false`, and an `outputStream` be provided to record the video in. In this case other api related parameters are unnecessary.
+If you do not wish to send the video to the Unissey's analyze API right away, you must simply define the `setOnRecordEndedListener` callback to receive the video captured by the SDK, `doesUseAPI` to `false`, and an `outputStream` be provided to record the video in. In this case other api related parameters are unnecessary.
 > Note: the ouput stream is **not** closed by the sdk. 
+
+You can hide explanations and capture button by setting respectively `showExplanations` and `showCaptureButton` to `false`
+
+When the start button is hidden the video must be triggered using `startVideoCapture` method
+```kotlin
+sdkFragment.startCapture()
+```
+
+Here an example of this use case
+
 ```xml
 <!-- <project>/src/main/res/layout/mainActivity.xml -->
 <!-- ... -->
@@ -79,12 +90,19 @@ If you do not wish to send the video to the Unissey's analyze API right away, yo
         
         // Create a stream to write the video in
         val out = ByteArrayOutputStream()
+        
+        // Create data object that will contain meta data after the capture
+        // import com.unissey.sdk.CaptureMetaData
+        var metadata: CaptureMetaData? = null
 
         val sdkFragment = supportFragmentManager.findFragmentByTag(SDK_FRAGMENT_TAG) as DsCameraFragment?
             ?: throw Error("Fragment with tag '$SDK_FRAGMENT_TAG' should exists")
 
         sdkFragment.apply {
             doesUseAPI = false
+          
+            showExplanations = true
+            showStartButton = true
             
             setOutputStream(out)
             setOnRecordEndedListener {
@@ -93,6 +111,9 @@ If you do not wish to send the video to the Unissey's analyze API right away, yo
                 // handle recorded video
                 // ...
                 out.close()
+              
+                // Get the meta data
+                metadata = captureMetadData
             }
         }
 
@@ -195,6 +216,8 @@ The SDK can also join a reference picture to the api call to enable face compari
 | DSCameraFragment::analyseBaseUrl     | String              | Base URL to use when requesting Unissey's analyze API                                   | <unissey analyze api url based on environnement> |
 | DSCameraFragment::environment        | DeepsenseEnvironments | Unissey API environment to use for request to Unissey's analyze API                              | DeepsenseEnvironments::STAGING                       |
 | DSCameraFragment::retriedSessionID   | String?             | Session ID of the retried session                                                         | null                                               |
+| DSCameraFragment::showExplanations   | Boolean             | Indicate if the explanations are displayed or not                                          | true
+| DSCameraFragment::showCaptureButton  | Boolean             | Indicate if the capture button is displayed or not                                         | true
 
 ## Functions
 | Name                                                                                      | Arguments                                                                                           | Returns | Descriptions                                                                                                                                                |
@@ -205,16 +228,33 @@ The SDK can also join a reference picture to the api call to enable face compari
 | DSCameraFragment::setOnAnalysisResultListener(listener: AnalysisResultListener)           | listener: callback called when the analysis is done.                                                | Unit    | The given callback will be called when the sdk finished analysis with api. Note: this callback will not be called if `doesUseAPI` is false                  |
 | DSCameraFragment::setOnRecordEndedListener(listener: RecordEndedListener)                 | listener: callback called when the video recording is done.                                         | Unit    | The given callback will be called when the sdk has finished to record the video. Note: it will only be called if an output stream has been provided.          |
 | DSCameraFragment::setOutputStream(out: OutputStream)                                      | out: stream where the video will be written.                                                        | Unit    | The function allows to provide an output stream to retrieve the video recorded by the sdk. Once a stream is provided the RecordEndedCallback will be called |
+| DSCameraFragment::startVideoCapture()                                                     |                                                                                                     | Unit    | Start the video capture programmatically
 
 ## Types
 - AnalysisResultListener
   - Function 
   - `(results: AnalyseResults, err: Throwable?) -> Unit`
   - Contains analyze results or errors
+  
 - RecordEndedListener
   - Function
   - `(outputStream: OutputStream) -> Unit`
   - Contains the provided output stream to retrieve the video
+  
+- CaptureMetadata
+  - data class
+  - attributes:
+    - frameRate: Double
+    - resolution: com.unissey.sdk.Resolution 
+    - recorderType: String
+    - mimeType: String
+    - sdkType: String 
+    - sdkVersion: String
+    - osName: String
+    - osVersion: String 
+    - deviceModel: String
+    - deviceVendor: String
+  
 - DeepsenseEnvironments
   - enum
   - values:
