@@ -1,10 +1,11 @@
-package co.deepsense.android_sample_app
+package sample.unissey.app
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.VideoView
+import sample.unissey.app.R
 
 class VideoPlay : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

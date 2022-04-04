@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="co.deepsense.android_sample_app">
+    package="sample.unissey.app">
 
     <application
         android:allowBackup="true"
@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidSampleApp">
         <activity
-            android:name=".VideoPlay"
+            android:name="sample.unissey.app.VideoPlay"
             android:exported="true" />
-        <activity android:name="co.deepsense.android_sample_app.MainActivity" android:exported="true">
+        <activity android:name="sample.unissey.app.MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "co.deepsense.android_sample_app"
+        applicationId "sample.unissey.app"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
