@@ -1,4 +1,4 @@
-package co.deepsense.android_sample_app
+package com.`unissey-sample`.android_sample_app
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("co.deepsense.android_sample_app", appContext.packageName)
+        assertEquals("sample.unissey.app", appContext.packageName)
     }
 }

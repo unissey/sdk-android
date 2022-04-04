@@ -1,4 +1,4 @@
-package co.deepsense.android_sample_app
+package com.`unissey-sample`.android_sample_app
 
 import org.junit.Test
 

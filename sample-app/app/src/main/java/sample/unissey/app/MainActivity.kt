@@ -1,4 +1,4 @@
-package co.deepsense.android_sample_app
+package sample.unissey.app
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.unissey.sdk.AnalyseResults
 import com.unissey.sdk.CaptureMetaData
 import com.unissey.sdk.DsCameraFragment
+
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.lang.Error
