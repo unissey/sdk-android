@@ -64,5 +64,5 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
-    implementation "com.unissey:unissey-sdk:2.0.4"
+    implementation "com.unissey:unissey-sdk:2.0.5"
 }

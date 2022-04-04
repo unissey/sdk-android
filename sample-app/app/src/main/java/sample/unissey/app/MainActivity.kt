@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.unissey.sdk.AnalyseResults
+import com.unissey.sdk.CaptureMetaData
 import com.unissey.sdk.DsCameraFragment
 
 import java.io.ByteArrayOutputStream
