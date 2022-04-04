@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("co.deepsense.android_sample_app", appContext.packageName)
+        assertEquals("sample.unissey.app", appContext.packageName)
     }
 }
