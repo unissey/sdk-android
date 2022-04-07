@@ -64,6 +64,12 @@ When the start button is hidden the video must be triggered using `startVideoCap
 ```kotlin
 sdkFragment.startCapture()
 ```
+For this purpose you can monitor camera state changes with the `onCameraStateChanged` callback. It is called every time the camera takes a new state. There are three states
+```kotlin
+CameraState.LOADING  // Camera is loading
+CameraState.READY // Camera is ready, the user can start the record
+CameraState.RELEASED // Camera resources are released
+```
 
 Here an example of this use case
 
@@ -103,6 +109,14 @@ Here an example of this use case
           
             showExplanations = true
             showStartButton = true
+
+            onCameraStateChanged = {
+              when(it){
+                CameraState.LOADING -> Log.d("CAMERA_LIFECYCLE", "Camera is loading")
+                CameraState.READY -> Log.d("CAMERA_LIFECYCLE", "Camera is ready, the user can start the capture")
+                CameraState.RELEASED -> Log.d("CAMERA_LIFECYCLE", "Camera resources are released")
+              }
+            }
             
             setOutputStream(out)
             setOnRecordEndedListener {
@@ -229,6 +243,8 @@ The SDK can also join a reference picture to the api call to enable face compari
 | DSCameraFragment::setOnRecordEndedListener(listener: RecordEndedListener)                 | listener: callback called when the video recording is done.                                         | Unit    | The given callback will be called when the sdk has finished to record the video. Note: it will only be called if an output stream has been provided.          |
 | DSCameraFragment::setOutputStream(out: OutputStream)                                      | out: stream where the video will be written.                                                        | Unit    | The function allows to provide an output stream to retrieve the video recorded by the sdk. Once a stream is provided the RecordEndedCallback will be called |
 | DSCameraFragment::startVideoCapture()                                                     |                                                                                                     | Unit    | Start the video capture programmatically
+| DSCameraFragment::onCameraStateChanged(state: CameraState)                                | state: Camera State enum                                                                            | Unit    | Called on camera state changes                                                                                                                                |:w
+
 
 ## Types
 - AnalysisResultListener
@@ -274,6 +290,7 @@ Some style attributes will modify the look ok the SDK:
 
 ## Versions
 
+* [2.1.0](https://github.com/unissey/sdk-android/packages/1234777?version=2.1.0)
 * [2.0.5](https://github.com/unissey/sdk-android/packages/1234777?version=2.0.5)
 
 ## Support

@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.unissey.sdk.AnalyseResults
+import com.unissey.sdk.CameraState
 import com.unissey.sdk.CaptureMetaData
 import com.unissey.sdk.DsCameraFragment
 
@@ -44,6 +45,14 @@ class MainActivity : AppCompatActivity() {
             doesUseAPI = IS_API_ENABLED
 
             setOutputStream(out)
+
+            onCameraStateChanged = {
+                when(it){
+                    CameraState.LOADING -> Log.d("CAMERA_LIFECYCLE", "Camera is loading")
+                    CameraState.READY -> Log.d("CAMERA_LIFECYCLE", "Camera is ready, the user can start the capture")
+                    CameraState.RELEASED -> Log.d("CAMERA_LIFECYCLE", "Camera resources are released")
+                }
+            }
 
             setOnRecordEndedListener {
                 out.close()
