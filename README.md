@@ -243,6 +243,8 @@ The SDK can also join a reference picture to the api call to enable face compari
 | DSCameraFragment::setOnRecordEndedListener(listener: RecordEndedListener)                 | listener: callback called when the video recording is done.                                         | Unit    | The given callback will be called when the sdk has finished to record the video. Note: it will only be called if an output stream has been provided.          |
 | DSCameraFragment::setOutputStream(out: OutputStream)                                      | out: stream where the video will be written.                                                        | Unit    | The function allows to provide an output stream to retrieve the video recorded by the sdk. Once a stream is provided the RecordEndedCallback will be called |
 | DSCameraFragment::startVideoCapture()                                                     |                                                                                                     | Unit    | Start the video capture programmatically
+| DSCameraFragment::onCameraStateChanged(state: CameraState)                                | state: Camera State enum                                                                            | Unit    | Called on camera state changes                                                                                                                                |:w
+
 
 ## Types
 - AnalysisResultListener
