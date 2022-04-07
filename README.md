@@ -64,6 +64,12 @@ When the start button is hidden the video must be triggered using `startVideoCap
 ```kotlin
 sdkFragment.startCapture()
 ```
+For this purpose you can monitor camera state changes with the `onCameraStateChanged` callback. It is called every time the camera takes a new state. There are three states
+```kotlin
+CameraState.LOADING  // Camera is loading
+CameraState.READY // Camera is ready, the user can start the record
+CameraState.RELEASED // Camera resources are released
+```
 
 Here an example of this use case
 
@@ -103,6 +109,14 @@ Here an example of this use case
           
             showExplanations = true
             showStartButton = true
+
+            onCameraStateChanged = {
+              when(it){
+                CameraState.LOADING -> Log.d("CAMERA_LIFECYCLE", "Camera is loading")
+                CameraState.READY -> Log.d("CAMERA_LIFECYCLE", "Camera is ready, the user can start the capture")
+                CameraState.RELEASED -> Log.d("CAMERA_LIFECYCLE", "Camera resources are released")
+              }
+            }
             
             setOutputStream(out)
             setOnRecordEndedListener {
@@ -274,6 +288,7 @@ Some style attributes will modify the look ok the SDK:
 
 ## Versions
 
+* [2.1.0](https://github.com/unissey/sdk-android/packages/1234777?version=2.1.0)
 * [2.0.5](https://github.com/unissey/sdk-android/packages/1234777?version=2.0.5)
 
 ## Support
