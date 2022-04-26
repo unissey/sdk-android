@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Android-Sample-App</string>
     <string name="activity_main_analysis_successful">Analysis successful</string>
     <string name="activity_main_analysis_bad_facematching">Analysis failed: bad face comparison</string>
@@ -6,4 +6,41 @@
     <string name="activity_main_analysis_error">Analysis failed: unexpected error</string>
     <string name="replay">Replay</string>
     <string name="retry">Retry</string>
+
+
+    <!-- Start of SDK Strings -->
+
+    <string name="statuss_ready" tools:override="true">Record a short video selfie.</string>
+    <string name="status_ready_sub" tools:override="true">The acquisition will last 1 second.</string>
+    <string name="record_button_ready" tools:override="true">Start</string>
+    <string name="face_position_helper_text" tools:override="true">Position your face in the oval</string>
+    <string name="deepsense_sdk_face_info_type_face_valid" tools:override="true">OK</string>
+    <string name="deepsense_sdk_face_info_type_good_pos" tools:override="true">Perfect, don\'t move</string>
+    <string name="deepsense_sdk_face_info_type_too_far" tools:override="true">Get closer</string>
+    <string name="deepsense_sdk_face_info_type_face_lost" tools:override="true">No face detected</string>
+    <string name="deepsense_sdk_face_info_type_bad_pos" tools:override="true">Bad face position</string>
+    <string name="deepsense_sdk_face_move_direction_down" tools:override="true">Move your face down</string>
+    <string name="deepsense_sdk_face_move_direction_up" tools:override="true">Move your face up</string>
+    <string name="deepsense_sdk_face_move_direction_left" tools:override="true">Move your face to the left</string>
+    <string name="deepsense_sdk_face_move_direction_right" tools:override="true">Move your face to the right</string>
+    <string name="deepsense_sdk_face_move_direction_back" tools:override="true">Step Back</string>
+    <string name="deepsense_sdk_face_move_direction_forward" tools:override="true">Get closer</string>
+
+    <!-- camera fragment -->
+    <string name="camera_fragment_image_view_content_description" tools:override="true">Unissey logo</string>
+    <string name="camera_fragment_loading_header" tools:override="true">Analysing…</string>
+
+
+    <!-- analysis explanation page -->
+    <string name="page_analysis_explanation_header_title" tools:override="true">Record a short video selfie</string>
+    <string name="page_analysis_explanation_header_subtitle" tools:override="true">"Let's make sure no one's impersonating you."</string>
+
+    <string name="page_analysis_explanation_item1_title" tools:override="true">Look straight at the camera, and keep your face clearly visible</string>
+    <string name="page_analysis_explanation_item2_title" tools:override="true">Have a plain expression </string>
+    <string name="page_analysis_explanation_item3_title" tools:override="true">Stand in a well-lit environment</string>
+    <string name="page_analysis_explanation_next_button_title" tools:override="true">continue</string>
+
+    <string name="camera_denied" tools:override="true">Camera access denied</string>
+
+    <!-- END of SDK Strings -->
 </resources>

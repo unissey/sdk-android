@@ -286,6 +286,27 @@ Some style attributes will modify the look ok the SDK:
 - overlayLogoBackgroundTint (color of Unissey logo on the overlay)
 - overlayColor (color of the overlay)
 
+## Customization
+You can override strings and drawables with your own resources.
+
+* For strings first bound tools to your string resources
+```xml
+<resources xmlns:tools="http://schemas.android.com/tools">
+  ....
+</resources>
+```
+then override each string
+```xml
+<string name="camera_denied" tools:override="true">Camera access denied</string>
+```
+The list of strings id is available on the `strings.xml` of the sample app
+
+* For drawables, place a file with the name of the resource you want to override.
+the following files will override icons of the instruction page:
+  - ic_face_expression_picto.xml
+  - ic_face_light_picto.xml
+  - ic_face_position_picto.xml
+  
 # 4. About
 
 ## Versions
