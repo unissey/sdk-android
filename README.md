@@ -135,6 +135,8 @@ Here an example of this use case
     }
 ```
 ### 2.2 Api Call Use Case
+⚠️This use case is not recommended in production, for security reasons, and should be limited to POC / demo settings only. In production, API calls should be made from your backend only.
+
 The SDK can make the call to Unissey's analyze API automatically after capturing the video if you specify the appropriate parameters.
 ```xml
 <!-- <project>/src/main/res/layout/mainActivity.xml -->
@@ -175,6 +177,8 @@ The SDK can make the call to Unissey's analyze API automatically after capturing
 ```
 
 ### 2.3 Api call with face comparison use case
+⚠️This use case is not recommended in production, for security reasons, and should be limited to POC / demo settings only. In production, API calls should be made from your backend only.
+
 The SDK can also join a reference picture to the api call to enable face comparison.
 ```xml
 <!-- <project>/src/main/res/layout/mainActivity.xml -->
