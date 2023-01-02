@@ -9,10 +9,9 @@ import android.util.Log
 import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.unissey.sdk.AnalyseResults
+import com.unissey.sdk.AnalyzeAPIResponse
 import com.unissey.sdk.CameraState
-import com.unissey.sdk.CaptureMetaData
-import com.unissey.sdk.DsCameraFragment
+import com.unissey.sdk.UnisseyFragment
 
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -24,13 +23,13 @@ class MainActivity : AppCompatActivity() {
         const val IS_API_ENABLED = false
     }
 
-    private lateinit var sdkFragment: DsCameraFragment
+    private lateinit var sdkFragment: UnisseyFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        sdkFragment = supportFragmentManager.findFragmentByTag(SDK_FRAGMENT_TAG) as DsCameraFragment?
+        sdkFragment = supportFragmentManager.findFragmentByTag(SDK_FRAGMENT_TAG) as UnisseyFragment?
             ?: throw Error("Fragment with tag '$SDK_FRAGMENT_TAG' should exists")
 
         val takeReferencePictureContract = prepareTakeReferencePictureContract()
@@ -69,15 +68,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun selectAnalysisResultMessageID(result: AnalyseResults, err: Throwable?): Int {
+    private fun selectAnalysisResultMessageID(result: AnalyzeAPIResponse, err: Throwable?): Int {
         if (err != null) {
             Log.e("MainActivity", "Error during analysis: $err", err)
             return R.string.activity_main_analysis_error
         }
 
         // If null and no error, no facematch / liveness has been ordered so it's ok.
-        val isFaceMatchOK = result.faceMatching?.isMatch ?: true
-        val isLivenessOK = result.liveness?.isGenuine ?: true
+        val isFaceMatchOK = result?.isMatch ?: true
+        val isLivenessOK = result?.isGenuine ?: true
 
         if (!isFaceMatchOK) return R.string.activity_main_analysis_bad_facematching
         if (!isLivenessOK) return  R.string.activity_main_analysis_bad_liveness

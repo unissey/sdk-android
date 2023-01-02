@@ -8,7 +8,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_holder"
-        android:name="com.unissey.sdk.DsCameraFragment"
+        android:name="com.unissey.sdk.UnisseyFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:tag="DSCameraFragmentHolder"

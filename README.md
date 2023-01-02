@@ -78,10 +78,10 @@ Here an example of this use case
 <!-- ... -->
 <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_holder"
-        android:name="com.unissey.sdk.DsCameraFragment"
+        android:name="com.unissey.sdk.UnisseyFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:tag="DSCameraFragmentHolder">
+        android:tag="UnisseyFragmentHolder">
 
 </androidx.fragment.app.FragmentContainerView>
 <!-- ... -->
@@ -101,7 +101,7 @@ Here an example of this use case
         // import com.unissey.sdk.CaptureMetaData
         var metadata: CaptureMetaData? = null
 
-        val sdkFragment = supportFragmentManager.findFragmentByTag(SDK_FRAGMENT_TAG) as DsCameraFragment?
+        val sdkFragment = supportFragmentManager.findFragmentByTag(SDK_FRAGMENT_TAG) as UnisseyFragment?
             ?: throw Error("Fragment with tag '$SDK_FRAGMENT_TAG' should exists")
 
         sdkFragment.apply {
@@ -143,10 +143,10 @@ The SDK can make the call to Unissey's analyze API automatically after capturing
 <!-- ... -->
 <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_holder"
-        android:name="com.unissey.sdk.DsCameraFragment"
+        android:name="com.unissey.sdk.UnisseyFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:tag="DSCameraFragmentHolder">
+        android:tag="UnisseyFragmentHolder">
 
 </androidx.fragment.app.FragmentContainerView>
 <!-- ... -->
@@ -159,7 +159,7 @@ The SDK can make the call to Unissey's analyze API automatically after capturing
 
         // ...
         
-        val sdkFragment = supportFragmentManager.findFragmentByTag(SDK_FRAGMENT_TAG) as DsCameraFragment?
+        val sdkFragment = supportFragmentManager.findFragmentByTag(SDK_FRAGMENT_TAG) as UnisseyFragment?
             ?: throw Error("Fragment with tag '$SDK_FRAGMENT_TAG' should exists")
 
         sdkFragment.apply {
@@ -185,10 +185,10 @@ The SDK can also join a reference picture to the api call to enable face compari
 <!-- ... -->
 <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_holder"
-        android:name="com.unissey.sdk.DsCameraFragment"
+        android:name="com.unissey.sdk.UnisseyFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:tag="DSCameraFragmentHolder">
+        android:tag="UnisseyFragmentHolder">
 
 </androidx.fragment.app.FragmentContainerView>
 <!-- ... -->
@@ -202,7 +202,7 @@ The SDK can also join a reference picture to the api call to enable face compari
         // ...
         val pictureBytes = getReferencePictureByteArrayFromSomewhere()
 
-        val sdkFragment = supportFragmentManager.findFragmentByTag(SDK_FRAGMENT_TAG) as DsCameraFragment?
+        val sdkFragment = supportFragmentManager.findFragmentByTag(SDK_FRAGMENT_TAG) as UnisseyFragment?
             ?: throw Error("Fragment with tag '$SDK_FRAGMENT_TAG' should exists")
 
         sdkFragment.apply {
@@ -226,28 +226,28 @@ The SDK can also join a reference picture to the api call to enable face compari
 ## Variables and attributes
 | Name                                 | Type                | Description                                                                               | default                                            |
 |--------------------------------------|---------------------|-------------------------------------------------------------------------------------------|----------------------------------------------------|
-| DSCameraFragment::isReady            | Boolean (readonly)  | Indicate if the fragment is ready                                                         |                                                    |
-| DSCameraFragment::isFaceMatchEnabled | Boolean (readonly)  | Indicate if the analyze will do face comparison or not                                    |                                                    |
-| DSCameraFragment::doesUseAPI         | Boolean             | Indicate if the fragment will automatically call Unissey's analyze API or not. (cf. [2.2 Api Call Use Case](#2.2-Api-Call-Use-Case)) | false                                              |
-| DsCameraFragment::gdprConsent        | Boolean             | Indicate if the user has given consent for use and storage of its personal data. (cf. [GDPR](https://gdpr.eu/))      | false                                              |
-| DSCameraFragment::apiKey             | String              | Api Key to use when requesting Unissey's analyze API                                    | ""                                                 |
-| DSCameraFragment::analyseBaseUrl     | String              | Base URL to use when requesting Unissey's analyze API                                   | <unissey analyze api url based on environnement> |
-| DSCameraFragment::environment        | DeepsenseEnvironments | Unissey API environment to use for request to Unissey's analyze API                              | DeepsenseEnvironments::STAGING                       |
-| DSCameraFragment::retriedSessionID   | String?             | Session ID of the retried session                                                         | null                                               |
-| DSCameraFragment::showExplanations   | Boolean             | Indicate if the explanations are displayed or not                                          | true
-| DSCameraFragment::showCaptureButton  | Boolean             | Indicate if the capture button is displayed or not                                         | true
+| UnisseyFragment::isReady            | Boolean (readonly)  | Indicate if the fragment is ready                                                         |                                                    |
+| UnisseyFragment::isFaceMatchEnabled | Boolean (readonly)  | Indicate if the analyze will do face comparison or not                                    |                                                    |
+| UnisseyFragment::doesUseAPI         | Boolean             | Indicate if the fragment will automatically call Unissey's analyze API or not. (cf. [2.2 Api Call Use Case](#2.2-Api-Call-Use-Case)) | false                                              |
+| UnisseyFragment::gdprConsent        | Boolean             | Indicate if the user has given consent for use and storage of its personal data. (cf. [GDPR](https://gdpr.eu/))      | false                                              |
+| UnisseyFragment::apiKey             | String              | Api Key to use when requesting Unissey's analyze API                                    | ""                                                 |
+| UnisseyFragment::analyseBaseUrl     | String              | Base URL to use when requesting Unissey's analyze API                                   | <unissey analyze api url based on environnement> |
+| UnisseyFragment::environment        | DeepsenseEnvironments | Unissey API environment to use for request to Unissey's analyze API                              | DeepsenseEnvironments::STAGING                       |
+| UnisseyFragment::retriedSessionID   | String?             | Session ID of the retried session                                                         | null                                               |
+| UnisseyFragment::showExplanations   | Boolean             | Indicate if the explanations are displayed or not                                          | true
+| UnisseyFragment::showCaptureButton  | Boolean             | Indicate if the capture button is displayed or not                                         | true
 
 ## Functions
 | Name                                                                                      | Arguments                                                                                           | Returns | Descriptions                                                                                                                                                |
 |-------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| DSCameraFragment::setReferencePicture(image:ByteArray, name: String, mimeType: String) | image: reference picture for face comparison - name: original file name - mimeType: picture mime type | Unit    | Enable face comparison using the provided image as reference picture                                                                                          |
-| DSCameraFragment::setReferencePicture(image:ByteArray)                                 | image: reference picture for face comparison                                                          | Unit    | Enable face comparison using the provided image as reference picture. The image will be assumed to be a JPEG file.                                            |
-| DSCameraFragment::clearReferencePicture()                                                 |                                                                                                     | Unit    | Disable face comparison.                                                                                                                                      |
-| DSCameraFragment::setOnAnalysisResultListener(listener: AnalysisResultListener)           | listener: callback called when the analysis is done.                                                | Unit    | The given callback will be called when the sdk finished analysis with api. Note: this callback will not be called if `doesUseAPI` is false                  |
-| DSCameraFragment::setOnRecordEndedListener(listener: RecordEndedListener)                 | listener: callback called when the video recording is done.                                         | Unit    | The given callback will be called when the sdk has finished to record the video. Note: it will only be called if an output stream has been provided.          |
-| DSCameraFragment::setOutputStream(out: OutputStream)                                      | out: stream where the video will be written.                                                        | Unit    | The function allows to provide an output stream to retrieve the video recorded by the sdk. Once a stream is provided the RecordEndedCallback will be called |
-| DSCameraFragment::startVideoCapture()                                                     |                                                                                                     | Unit    | Start the video capture programmatically
-| DSCameraFragment::onCameraStateChanged(state: CameraState)                                | state: Camera State enum                                                                            | Unit    | Called on camera state changes                                                                                                                                |:w
+| UnisseyFragment::setReferencePicture(image:ByteArray, name: String, mimeType: String) | image: reference picture for face comparison - name: original file name - mimeType: picture mime type | Unit    | Enable face comparison using the provided image as reference picture                                                                                          |
+| UnisseyFragment::setReferencePicture(image:ByteArray)                                 | image: reference picture for face comparison                                                          | Unit    | Enable face comparison using the provided image as reference picture. The image will be assumed to be a JPEG file.                                            |
+| UnisseyFragment::clearReferencePicture()                                                 |                                                                                                     | Unit    | Disable face comparison.                                                                                                                                      |
+| UnisseyFragment::setOnAnalysisResultListener(listener: AnalysisResultListener)           | listener: callback called when the analysis is done.                                                | Unit    | The given callback will be called when the sdk finished analysis with api. Note: this callback will not be called if `doesUseAPI` is false                  |
+| UnisseyFragment::setOnRecordEndedListener(listener: RecordEndedListener)                 | listener: callback called when the video recording is done.                                         | Unit    | The given callback will be called when the sdk has finished to record the video. Note: it will only be called if an output stream has been provided.          |
+| UnisseyFragment::setOutputStream(out: OutputStream)                                      | out: stream where the video will be written.                                                        | Unit    | The function allows to provide an output stream to retrieve the video recorded by the sdk. Once a stream is provided the RecordEndedCallback will be called |
+| UnisseyFragment::startVideoCapture()                                                     |                                                                                                     | Unit    | Start the video capture programmatically
+| UnisseyFragment::onCameraStateChanged(state: CameraState)                                | state: Camera State enum                                                                            | Unit    | Called on camera state changes                                                                                                                                |:w
 
 
 ## Types
