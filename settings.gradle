@@ -1,0 +1,36 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+// Retrieve the properties from the `local.properties` file
+Properties properties = new Properties()
+properties.load(new File(rootDir.absolutePath + '/local.properties').newDataInputStream())
+
+def repoUsername = properties.getProperty('ANDROID_REPO_USERNAME')
+def repoAccessToken = properties.getProperty('ANDROID_REPO_TOKEN')
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/unissey/sdk-android")
+            credentials {
+                username = repoUsername
+                password = repoAccessToken
+            }
+        }
+    }
+}
+
+rootProject.name = "Unissey Android Sample Apps"
+
+include ':sample-compose-app'
+include ':sample-legacy-app'
+include ':sample-java-app'
