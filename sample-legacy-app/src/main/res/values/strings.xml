@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name" translatable="false">Unissey Sample Legacy App</string>
+    <string name="restart">Restart</string>
+</resources>
