@@ -3,6 +3,8 @@
 <!-- Using HTML notation instead of MD to prevent the TOC generation from picking up this header --> 
 <h1>Unissey Android SDK</h1>
 
+[![GitHub release (with filter)](https://img.shields.io/github/v/release/unissey/sdk-android)](https://github.com/unissey/sdk-android/packages/1234777)
+
 This Android Library provides an easy way to obtain a video selfie to be used with Unissey's SaaS
 solution on an Android application. This SDK has been developed with Android Compose, allowing for
 an easy integration on both Android Compose apps and traditional Android Views apps.
@@ -10,43 +12,43 @@ an easy integration on both Android Compose apps and traditional Android Views a
 <!-- @formatter:off -->
 <!-- TOC -->
 * [1. Installation & requirements](#1-installation--requirements)
-  * [1.1 Requirements](#11-requirements)
-  * [1.2 Installation](#12-installation)
-    * [1.2.1 Get a GitHub personal access token](#121-get-a-github-personal-access-token)
-    * [1.2.2 Configure your repositories to include Unissey's package repository](#122-configure-your-repositories-to-include-unisseys-package-repository)
-    * [1.2.3 Add a dependency to Unissey's SDK in your application](#123-add-a-dependency-to-unisseys-sdk-in-your-application)
+    * [1.1 Requirements](#11-requirements)
+    * [1.2 Installation](#12-installation)
+        * [1.2.1 Get a GitHub personal access token](#121-get-a-github-personal-access-token)
+        * [1.2.2 Configure your repositories to include Unissey's package repository](#122-configure-your-repositories-to-include-unisseys-package-repository)
+        * [1.2.3 Add a dependency to Unissey's SDK in your application](#123-add-a-dependency-to-unisseys-sdk-in-your-application)
 * [2. Getting started](#2-getting-started)
-  * [2.1 Overview](#21-overview)
-  * [2.2 UnisseyViewModel](#22-unisseyviewmodel)
-  * [2.3 UnisseyScreen](#23-unisseyscreen)
-    * [2.3.1 Android Compose](#231-android-compose)
-    * [2.3.2 Traditional Android Views](#232-traditional-android-views)
+    * [2.1 Overview](#21-overview)
+    * [2.2 UnisseyViewModel](#22-unisseyviewmodel)
+    * [2.3 UnisseyScreen](#23-unisseyscreen)
+        * [2.3.1 Android Compose](#231-android-compose)
+        * [2.3.2 Traditional Android Views](#232-traditional-android-views)
 * [3. Reference](#3-reference)
-  * [3.1 AcquisitionPreset](#31-acquisitionpreset)
-  * [3.2 OnRecordEndedListener](#32-onrecordendedlistener)
-  * [3.3 OnStateChangedListener](#33-onstatechangedlistener)
-  * [3.4 SessionConfig](#34-sessionconfig)
-  * [3.5 UnisseyViewModel's public variables and functions](#35-unisseyviewmodels-public-variables-and-functions)
-  * [3.6 String resources](#36-string-resources)
-  * [3.7 Colors](#37-colors)
-  * [3.8 Images](#38-images)
-  * [3.9 Typography](#39-typography)
+    * [3.1 AcquisitionPreset](#31-acquisitionpreset)
+    * [3.2 OnRecordEndedListener](#32-onrecordendedlistener)
+    * [3.3 OnStateChangedListener](#33-onstatechangedlistener)
+    * [3.4 SessionConfig](#34-sessionconfig)
+    * [3.5 UnisseyViewModel's public variables and functions](#35-unisseyviewmodels-public-variables-and-functions)
+    * [3.6 String resources](#36-string-resources)
+    * [3.7 Colors](#37-colors)
+    * [3.8 Images](#38-images)
+    * [3.9 Typography](#39-typography)
 * [4. Advanced usage](#4-advanced-usage)
-  * [4.1 Specifying a SessionConfig](#41-specifying-a-sessionconfig)
-  * [4.2 Customizing the texts and translations](#42-customizing-the-texts-and-translations)
-  * [4.3 Customizing the colors](#43-customizing-the-colors)
-    * [4.3.1 Android Compose](#431-android-compose)
-    * [4.3.2 Traditional Android Views](#432-traditional-android-views)
-  * [4.3 Customizing the images](#43-customizing-the-images)
-  * [4.4 Customizing the types](#44-customizing-the-types)
-  * [4.5 Auto-starting the video capture when the camera's ready](#45-auto-starting-the-video-capture-when-the-cameras-ready)
-    * [4.4.1 Android Compose](#441-android-compose)
-    * [4.4.2 Traditional Android Views](#442-traditional-android-views)
-  * [4.6 Adapting the content padding](#46-adapting-the-content-padding)
-    * [4.5.1 Android Compose](#451-android-compose)
-    * [4.5.2 Traditional Android Views](#452-traditional-android-views)
+    * [4.1 Specifying a SessionConfig](#41-specifying-a-sessionconfig)
+    * [4.2 Customizing the texts and translations](#42-customizing-the-texts-and-translations)
+    * [4.3 Customizing the colors](#43-customizing-the-colors)
+        * [4.3.1 Android Compose](#431-android-compose)
+        * [4.3.2 Traditional Android Views](#432-traditional-android-views)
+    * [4.3 Customizing the images](#43-customizing-the-images)
+    * [4.4 Customizing the types](#44-customizing-the-types)
+    * [4.5 Auto-starting the video capture when the camera's ready](#45-auto-starting-the-video-capture-when-the-cameras-ready)
+        * [4.4.1 Android Compose](#441-android-compose)
+        * [4.4.2 Traditional Android Views](#442-traditional-android-views)
+    * [4.6 Adapting the content padding](#46-adapting-the-content-padding)
+        * [4.5.1 Android Compose](#451-android-compose)
+        * [4.5.2 Traditional Android Views](#452-traditional-android-views)
 * [5. Common issues](#5-common-issues)
-  * [5.1 Android Studio reporting string resources not translated in French](#51-android-studio-reporting-string-resources-not-translated-in-french)
+    * [5.1 Android Studio reporting string resources not translated in French](#51-android-studio-reporting-string-resources-not-translated-in-french)
 <!-- TOC -->
 <!-- @formatter:on -->
 
@@ -171,17 +173,17 @@ val unisseyViewModel: UnisseyViewModel by viewModels {
 ```java
 // In Java
 UnisseyViewModel unisseyViewModel = new ViewModelProvider(
-    this,
-    UnisseyViewModel.Factory.create(SelfieFast.INSTANCE, result -> {
+        this,
+        UnisseyViewModel.Factory.create(SelfieFast.INSTANCE, result -> {
         // `result` contains the response or an error
         // Just like in Kotlin, you can use the convenience functions or a more classic approach
         SessionResponse response = result.getOrNull();
         Log.d(
-            "UnisseySdk",
-            "Video record ended with file path: " + response.getVideoFilePath()
+        "UnisseySdk",
+        "Video record ended with file path: " + response.getVideoFilePath()
         );
-    })
-).get(UnisseyViewModel.class);
+        })
+        ).get(UnisseyViewModel.class);
 ```
 <!-- @formatter:on -->
 
@@ -589,16 +591,16 @@ val unisseyViewModel: UnisseyViewModel by viewModels {
 ```java
 // In Java
 RecordingConfig recordingConfig = new RecordingConfig(2000);
-UiConfig uiConfig = new UiConfig(false, false);
-SessionConfig sessionConfig = new SessionConfig(recordingConfig, uiConfig);
+        UiConfig uiConfig = new UiConfig(false, false);
+        SessionConfig sessionConfig = new SessionConfig(recordingConfig, uiConfig);
 
-UnisseyViewModel unisseyViewModel = 
+        UnisseyViewModel unisseyViewModel =
         new ViewModelProvider(this,
-                UnisseyViewModel.Factory.create(SelfieFast.INSTANCE,
-                    sessionConfig,
-                    result -> {
-                        ...
-                    })
+        UnisseyViewModel.Factory.create(SelfieFast.INSTANCE,
+        sessionConfig,
+        result -> {
+        ...
+        })
         ).get(UnisseyViewModel.class);
 ```
 <!-- @formatter:on -->
