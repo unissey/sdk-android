@@ -11,19 +11,19 @@ an easy integration on both Android Compose apps and traditional Android Views a
 
 <!-- @formatter:off -->
 <!-- TOC -->
-* [1. Installation & requirements](#1-installation--requirements)
+  * [1. Installation & requirements](#1-installation--requirements)
     * [1.1 Requirements](#11-requirements)
     * [1.2 Installation](#12-installation)
-        * [1.2.1 Get a GitHub personal access token](#121-get-a-github-personal-access-token)
-        * [1.2.2 Configure your repositories to include Unissey's package repository](#122-configure-your-repositories-to-include-unisseys-package-repository)
-        * [1.2.3 Add a dependency to Unissey's SDK in your application](#123-add-a-dependency-to-unisseys-sdk-in-your-application)
-* [2. Getting started](#2-getting-started)
+      * [1.2.1 Get a GitHub personal access token](#121-get-a-github-personal-access-token)
+      * [1.2.2 Configure your repositories to include Unissey's package repository](#122-configure-your-repositories-to-include-unisseys-package-repository)
+      * [1.2.3 Add a dependency to Unissey's SDK in your application](#123-add-a-dependency-to-unisseys-sdk-in-your-application)
+  * [2. Getting started](#2-getting-started)
     * [2.1 Overview](#21-overview)
     * [2.2 UnisseyViewModel](#22-unisseyviewmodel)
     * [2.3 UnisseyScreen](#23-unisseyscreen)
-        * [2.3.1 Android Compose](#231-android-compose)
-        * [2.3.2 Traditional Android Views](#232-traditional-android-views)
-* [3. Reference](#3-reference)
+      * [2.3.1 Android Compose](#231-android-compose)
+      * [2.3.2 Traditional Android Views](#232-traditional-android-views)
+  * [3. Reference](#3-reference)
     * [3.1 AcquisitionPreset](#31-acquisitionpreset)
     * [3.2 OnRecordEndedListener](#32-onrecordendedlistener)
     * [3.3 OnStateChangedListener](#33-onstatechangedlistener)
@@ -33,21 +33,25 @@ an easy integration on both Android Compose apps and traditional Android Views a
     * [3.7 Colors](#37-colors)
     * [3.8 Images](#38-images)
     * [3.9 Typography](#39-typography)
-* [4. Advanced usage](#4-advanced-usage)
+  * [4. Advanced usage](#4-advanced-usage)
     * [4.1 Specifying a SessionConfig](#41-specifying-a-sessionconfig)
     * [4.2 Customizing the texts and translations](#42-customizing-the-texts-and-translations)
     * [4.3 Customizing the colors](#43-customizing-the-colors)
-        * [4.3.1 Android Compose](#431-android-compose)
-        * [4.3.2 Traditional Android Views](#432-traditional-android-views)
-    * [4.3 Customizing the images](#43-customizing-the-images)
-    * [4.4 Customizing the types](#44-customizing-the-types)
-    * [4.5 Auto-starting the video capture when the camera's ready](#45-auto-starting-the-video-capture-when-the-cameras-ready)
-        * [4.4.1 Android Compose](#441-android-compose)
-        * [4.4.2 Traditional Android Views](#442-traditional-android-views)
-    * [4.6 Adapting the content padding](#46-adapting-the-content-padding)
-        * [4.5.1 Android Compose](#451-android-compose)
-        * [4.5.2 Traditional Android Views](#452-traditional-android-views)
-* [5. Common issues](#5-common-issues)
+      * [4.3.1 Android Compose](#431-android-compose)
+      * [4.3.2 Traditional Android Views](#432-traditional-android-views)
+    * [4.4 Customizing the images](#44-customizing-the-images)
+    * [4.5 Customizing the types](#45-customizing-the-types)
+    * [4.6 Auto-starting the video capture when the camera's ready](#46-auto-starting-the-video-capture-when-the-cameras-ready)
+      * [4.6.1 Android Compose](#461-android-compose)
+      * [4.6.2 Traditional Android Views](#462-traditional-android-views)
+    * [4.7 Adapting the content padding](#47-adapting-the-content-padding)
+      * [4.7.1 Android Compose](#471-android-compose)
+      * [4.7.2 Traditional Android Views](#472-traditional-android-views)
+    * [4.8 Enabling Injection Attack Detection (IAD)](#48-enabling-injection-attack-detection-iad)
+      * [4.8.1 Obtain the IAD data from your Back-End](#481-obtain-the-iad-data-from-your-back-end)
+      * [4.8.2 Create an IadConfig to add to the SessionConfig](#482-create-an-iadconfig-to-add-to-the-sessionconfig)
+      * [4.8.3 Send the metadata along with the video to the /analyze endpoint](#483-send-the-metadata-along-with-the-video-to-the-analyze-endpoint)
+  * [5. Common issues](#5-common-issues)
     * [5.1 Android Studio reporting string resources not translated in French](#51-android-studio-reporting-string-resources-not-translated-in-french)
 <!-- TOC -->
 <!-- @formatter:on -->
@@ -103,7 +107,7 @@ In your app's `build.gradle` this time, add a dependency to the SDK like so:
 
 ```groovy
 dependencies {
-    implementation 'com.unissey:unissey-sdk:3.0.0'
+    implementation 'com.unissey:unissey-sdk:3.1.0'
 }
 ```
 
@@ -173,17 +177,17 @@ val unisseyViewModel: UnisseyViewModel by viewModels {
 ```java
 // In Java
 UnisseyViewModel unisseyViewModel = new ViewModelProvider(
-        this,
-        UnisseyViewModel.Factory.create(SelfieFast.INSTANCE, result -> {
+    this,
+    UnisseyViewModel.Factory.create(SelfieFast.INSTANCE, result -> {
         // `result` contains the response or an error
         // Just like in Kotlin, you can use the convenience functions or a more classic approach
         SessionResponse response = result.getOrNull();
         Log.d(
-        "UnisseySdk",
-        "Video record ended with file path: " + response.getVideoFilePath()
+            "UnisseySdk",
+            "Video record ended with file path: " + response.getVideoFilePath()
         );
-        })
-        ).get(UnisseyViewModel.class);
+    })
+).get(UnisseyViewModel.class);
 ```
 <!-- @formatter:on -->
 
@@ -327,6 +331,18 @@ public class UnisseyFragment extends Fragment {
 }
 ```
 
+⚠️ **NOTE:** If your application is written in Java, a crash might happen when instantiating the
+UnisseyView unless you add this plugin to your `build.gradle` file:
+
+```groovy
+plugins {
+    id 'org.jetbrains.kotlin.android'
+}
+```
+
+This problem started happening with the version `2024.01.00` of `androidx.compose:compose-bom` that
+is used in Unissey's SDK to choose coherent versions of Compose.
+
 ## 3. Reference
 
 ### 3.1 AcquisitionPreset
@@ -431,7 +447,7 @@ The `UiConfig`:
 |---------------------------------------|----------|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | darkTheme                             | Boolean? | null          | Specify whether to force the dark theme (if set to `true`), force a light theme (if set to `false`) or leave the decision to the user's system (if set to `null`)                                                                                                                          |
 | showInstructions                      | Boolean  | true          | Specify whether to show the first instructions screen or not                                                                                                                                                                                                                               |
-| showVideoCaptureButton                | Boolean  | true          | Specify whether to show the "Start" button on the video capture screen or not. This is mainly useful if you choose to enable auto-starting of the video capture, as explained in the [Auto-starting the video capture](#45-auto-starting-the-video-capture-when-the-cameras-ready) section |
+| showVideoCaptureButton                | Boolean  | true          | Specify whether to show the "Start" button on the video capture screen or not. This is mainly useful if you choose to enable auto-starting of the video capture, as explained in the [Auto-starting the video capture](#46-auto-starting-the-video-capture-when-the-cameras-ready) section |
 | showWideWindowPreviewInputsToTheRight | Boolean  | true          | Specify whether the preview inputs should be displayed to the right of the camera preview or to the left in wide window mode (typically on phones in landscape mode)                                                                                                                       | 
 
 ### 3.5 UnisseyViewModel's public variables and functions
@@ -504,7 +520,7 @@ to the Unissey color theme:
 ### 3.8 Images
 
 This SDK contains customizable images (see
-[Customizing the images](#43-customizing-the-images) section
+[Customizing the images](#44-customizing-the-images) section
 to know how to override them). Those images illustrate the three instructions on the first optional
 screen.
 
@@ -520,7 +536,7 @@ Here's the list of images:
 
 In the same spirit as the colors variables, the SDK provides a set of types used throughout the
 different screens. They can be overridden in the same manner as the colors (
-see [Customizing the types](#44-customizing-the-types) section to know how). Those types are divided
+see [Customizing the types](#45-customizing-the-types) section to know how). Those types are divided
 into three categories: Compact, Medium and Expanded. Those categories correspond to the Window Size
 Classes defined by
 the [official documentation](https://developer.android.com/guide/topics/large-screens/support-different-screen-sizes#window_size_classes)
@@ -591,16 +607,16 @@ val unisseyViewModel: UnisseyViewModel by viewModels {
 ```java
 // In Java
 RecordingConfig recordingConfig = new RecordingConfig(2000);
-        UiConfig uiConfig = new UiConfig(false, false);
-        SessionConfig sessionConfig = new SessionConfig(recordingConfig, uiConfig);
+UiConfig uiConfig = new UiConfig(false, false);
+SessionConfig sessionConfig = new SessionConfig(recordingConfig, uiConfig);
 
-        UnisseyViewModel unisseyViewModel =
+UnisseyViewModel unisseyViewModel = 
         new ViewModelProvider(this,
-        UnisseyViewModel.Factory.create(SelfieFast.INSTANCE,
-        sessionConfig,
-        result -> {
-        ...
-        })
+                UnisseyViewModel.Factory.create(SelfieFast.INSTANCE,
+                    sessionConfig,
+                    result -> {
+                        ...
+                    })
         ).get(UnisseyViewModel.class);
 ```
 <!-- @formatter:on -->
@@ -750,13 +766,13 @@ Don't forget to check the latest version of this
 package [here](https://mvnrepository.com/artifact/androidx.compose.ui/ui) to benefit from the latest
 updates.
 
-### 4.3 Customizing the images
+### 4.4 Customizing the images
 
 This SDK exposes some images in its `drawable` directory. They can be freely
 overridden by just providing your own images using the same names as the ones defined in
 the SDK and detailed in the [Images](#38-images) sections.
 
-### 4.4 Customizing the types
+### 4.5 Customizing the types
 
 This SDK is using the Material 3 library for theming. Just like for the colors, it exposes a number
 of variables that can be overridden by the client's application, which are all listed in
@@ -802,7 +818,7 @@ Android Views, be aware that the types used in the example are Android Compose t
 you will need to add a dependency to `androidx.compose.ui:ui` to your project to be able to edit the
 types.
 
-### 4.5 Auto-starting the video capture when the camera's ready
+### 4.6 Auto-starting the video capture when the camera's ready
 
 This SDK provides an [OnStateChangedListener](#33-onstatechangedlistener) that you can leverage to
 achieve more advanced behavior. One good example of advanced usage would be to use this listener,
@@ -819,7 +835,7 @@ val sessionConfig = SessionConfig(uiConfig = UiConfig(showVideoCaptureButton = f
 Then, you need to implement an `OnStateChangedListener` and trigger the `startVideoCapture()`
 function when the SDK's state becomes `CameraReady`.
 
-#### 4.4.1 Android Compose
+#### 4.6.1 Android Compose
 
 Here's a way you could do that in Android Compose:
 
@@ -860,7 +876,7 @@ class MainActivity : ComponentActivity() {
 The trick is that you need a reference to the `UnisseyViewModel` before instantiating it
 with the Factory, since you need the reference to call `startVideoCapture()`.
 
-#### 4.4.2 Traditional Android Views
+#### 4.6.2 Traditional Android Views
 
 In a very similar manner as the Android Compose code above, here's how you could achieve the same
 result using traditional Android Views:
@@ -908,7 +924,7 @@ change, as mentioned in the [UnisseyScreen](#232-traditional-android-views) sect
 update your `OnStageChangedListener` to avoid any crash after the user has rotated the screen or
 done any other action that could trigger a configuration change.
 
-### 4.6 Adapting the content padding
+### 4.7 Adapting the content padding
 
 The SDK lets you define [Modifiers](https://developer.android.com/jetpack/compose/modifiers) for its
 three pages. They allow you to further customize some aspects of the screens. One good example of
@@ -918,7 +934,7 @@ necessarily need to specify a padding when adding a toolbar, but if you want som
 display in full screen, such as the video capture screen, you may adapt your layout to do so and
 then provide padding to the pages that shouldn't be in full screen.
 
-#### 4.5.1 Android Compose
+#### 4.7.1 Android Compose
 
 As illustrated in the Sample Compose App, you could use the Material
 3 [Scaffold](https://developer.android.com/jetpack/compose/layouts/material#scaffold) Composable
@@ -956,7 +972,7 @@ By doing this, you're effectively keeping the video capture screens in full scre
 padding corresponding to the top bar's height to the instructions and camera permission screens, so
 that the top bar isn't overlapping the screen content.
 
-#### 4.5.2 Traditional Android Views
+#### 4.7.2 Traditional Android Views
 
 As illustrated in the Sample Legacy App, you could have a transparent `Toolbar` widget constrained
 so that it technically overlaps the screen content. By doing so, the SDK's screens would appear in
@@ -1022,6 +1038,53 @@ android {
     }
 }
 ```
+
+### 4.8 Enabling Injection Attack Detection (IAD)
+
+Unissey’s Injection Attack Detection (IAD) is a solution based on random, entirely passive
+measurements that assure the genuineness and authenticity of the used camera and of the captured
+video flow.
+
+#### 4.8.1 Obtain the IAD data from your Back-End
+
+The first step is retrieving the string data to pass on to the SDK. To do so, call the
+endpoint `/iad/prepare` as described in the API documentation **from your application's Back-End** (
+this is important as you need to specify your API key which should never be made public in your
+client's source code).
+
+#### 4.8.2 Create an IadConfig to add to the SessionConfig
+
+As explained in the [Specifying a SessionConfig](#41-specifying-a-sessionconfig) section, you can
+customize the SDK's behavior by specifying a configuration object. In order to enable Injection
+Attack Detection and secure the acquired video, you need to create a `SessionConfig` object
+containing an `IadConfig` with the data retrieved from the call to `/iad/prepare`:
+
+```kotlin
+val iadConfig = IadConfig(iadData)
+val sessionConfig = SessionConfig(iadConfig = iadConfig)
+
+val unisseyViewModel: UnisseyViewModel by viewModels {
+    UnisseyViewModel.Factory.create(
+        SelfieFast,
+        sessionConfig,
+    ) { result ->
+        ...
+    }
+}
+```
+
+Note that when IAD is enabled, the video takes a bit longer to appear to the user (up to 3.5s) since
+the SDK is performing some computations to ensure the camera and video are genuine and authentic.
+
+#### 4.8.3 Send the metadata along with the video to the /analyze endpoint
+
+Last but not least, when transmitting the video to your application's Back-End, do not forget to
+send the metadata returned by the SDK as well. From your Back-End, you should then send the video
+and the metadata to Unissey's `/analyze` endpoint. This step is mandatory in order for the IAD to
+work since these encrypted metadata now contain information processed on our Back-End to assess the
+video's authenticity.
+
+The result of the call to `/analyze` will then contain information related to the IAD.
 
 ## 5. Common issues
 

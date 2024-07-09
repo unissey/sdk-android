@@ -28,7 +28,7 @@ import com.unissey.samplecomposeapp.R
 fun VideoPlayerScreen(
     modifier: Modifier = Modifier,
     videoUri: String,
-    onRestartButtonClicked: () -> Unit
+    onRestartButtonClick: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -42,35 +42,36 @@ fun VideoPlayerScreen(
             exoPlayer.prepare()
         }
 
-    DisposableEffect(
-        Surface(modifier = modifier.fillMaxSize()) {
+    DisposableEffect(Unit) {
+        onDispose {
+            exoPlayer.release()
+        }
+    }
 
-            BoxWithConstraints {
-                val maxHeight = maxHeight
+    Surface(modifier = modifier.fillMaxSize()) {
+        BoxWithConstraints {
+            val maxHeight = maxHeight
 
-                Column(
-                    modifier = Modifier.verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    AndroidView(
-                        modifier = Modifier.height(maxHeight * 0.75f),
-                        factory = {
-                            PlayerView(context).apply {
-                                player = exoPlayer
-                            }
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                AndroidView(
+                    modifier = Modifier.height(maxHeight * 0.75f),
+                    factory = {
+                        PlayerView(context).apply {
+                            player = exoPlayer
                         }
-                    )
-                    Button(onClick = onRestartButtonClicked) {
-                        Text(
-                            text = stringResource(R.string.restart).uppercase(),
-                            style = MaterialTheme.typography.labelMedium
-                        )
                     }
+                )
+                Button(onClick = onRestartButtonClick) {
+                    Text(
+                        text = stringResource(R.string.restart).uppercase(),
+                        style = MaterialTheme.typography.labelMedium
+                    )
                 }
             }
         }
-    ) {
-        onDispose { exoPlayer.release() }
     }
 }

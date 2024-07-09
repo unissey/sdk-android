@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
                 if (videoUri.isEmpty()) {
                     AppScaffold(
                         canNavigateUp = unisseyViewModel.currentPage != UnisseyPage.INSTRUCTIONS,
-                        onUpClicked = {
+                        onUpClick = {
                             unisseyViewModel.navigateUp()
                         }) { contentPadding ->
                         UnisseyScreen(
@@ -55,13 +55,13 @@ class MainActivity : ComponentActivity() {
                     }
                 } else {
                     AppScaffold(
-                        onUpClicked = {
+                        onUpClick = {
                             videoUri = ""
                         }) { contentPadding ->
                         VideoPlayerScreen(
                             modifier = Modifier.padding(contentPadding),
                             videoUri = videoUri,
-                            onRestartButtonClicked = {
+                            onRestartButtonClick = {
                                 unisseyViewModel.navigateUp()
                                 videoUri = ""
                             }
