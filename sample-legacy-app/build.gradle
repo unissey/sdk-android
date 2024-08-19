@@ -52,7 +52,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    implementation 'com.unissey:unissey-sdk:3.1.0'
+    implementation 'com.unissey:unissey-sdk:3.1.1'
 
     testImplementation 'junit:junit:4.13.2'
 
