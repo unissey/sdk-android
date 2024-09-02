@@ -107,7 +107,7 @@ In your app's `build.gradle` this time, add a dependency to the SDK like so:
 
 ```groovy
 dependencies {
-    implementation 'com.unissey:unissey-sdk:3.1.1'
+    implementation 'com.unissey:unissey-sdk:3.1.2'
 }
 ```
 
@@ -351,10 +351,10 @@ The present SDK provides presets defining how the video is recorded. Even if you
 its values, you must select a preset when creating an instance of `UnisseyViewModel`.
 Here are the 2 current possible values of `AcquisitionPreset`:
 
-| Preset name       | Recording duration | Video quality                                                            | Description                                                                                                                        |
-|-------------------|--------------------|--------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| SelfieFast        | 1 second           | 480p resolution, with a "HigherQualityOrLowerThan(SD)" fallback strategy | The preset that most use cases rely on. It provides the minimal configuration needed for Unissey's AI models to work at their best |
-| SelfieSubstantial | 3 seconds          | 720p resolution, with a "HigherQualityThan(HD)" fallback strategy        | The preset fit for use cases aiming for a PVID substantial compliance                                                              |
+| Preset name       | Recording duration | Video quality                                                      | Description                                                                                                                        |
+|-------------------|--------------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| SelfieFast        | 1 second           | 720p resolution, with a "HigherQualityThan(HD)"  fallback strategy | The preset that most use cases rely on. It provides the minimal configuration needed for Unissey's AI models to work at their best |
+| SelfieSubstantial | 3 seconds          | 720p resolution, with a "HigherQualityThan(HD)" fallback strategy  | The preset fit for use cases aiming for a PVID substantial compliance                                                              |
 
 ### 3.2 OnRecordEndedListener
 
@@ -443,12 +443,13 @@ The `VideoQualitySelector`:
 
 The `UiConfig`:
 
-| Parameter name                        | Type     | Default value | Description                                                                                                                                                                                                                                                                                |
-|---------------------------------------|----------|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| darkTheme                             | Boolean? | null          | Specify whether to force the dark theme (if set to `true`), force a light theme (if set to `false`) or leave the decision to the user's system (if set to `null`)                                                                                                                          |
-| showInstructions                      | Boolean  | true          | Specify whether to show the first instructions screen or not                                                                                                                                                                                                                               |
-| showVideoCaptureButton                | Boolean  | true          | Specify whether to show the "Start" button on the video capture screen or not. This is mainly useful if you choose to enable auto-starting of the video capture, as explained in the [Auto-starting the video capture](#46-auto-starting-the-video-capture-when-the-cameras-ready) section |
-| showWideWindowPreviewInputsToTheRight | Boolean  | true          | Specify whether the preview inputs should be displayed to the right of the camera preview or to the left in wide window mode (typically on phones in landscape mode)                                                                                                                       | 
+| Parameter name                        | Type     | Default value                       | Description                                                                                                                                                                                                                                                                                |
+|---------------------------------------|----------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| darkTheme                             | Boolean? | null                                | Specify whether to force the dark theme (if set to `true`), force a light theme (if set to `false`) or leave the decision to the user's system (if set to `null`)                                                                                                                          |
+| showInstructions                      | Boolean  | true                                | Specify whether to show the first instructions screen or not                                                                                                                                                                                                                               |
+| showVideoCaptureButton                | Boolean  | true                                | Specify whether to show the "Start" button on the video capture screen or not. This is mainly useful if you choose to enable auto-starting of the video capture, as explained in the [Auto-starting the video capture](#46-auto-starting-the-video-capture-when-the-cameras-ready) section |
+| showWideWindowPreviewInputsToTheRight | Boolean  | true                                | Specify whether the preview inputs should be displayed to the right of the camera preview or to the left in wide window mode (typically on phones in landscape mode)                                                                                                                       | 
+| buttonCornerRadius                    | Float?   | null (which leads to radius of 7dp) | Set the corner radius of the buttons present in the SDK's interfaces                                                                                                                                                                                                                       |
 
 ### 3.5 UnisseyViewModel's public variables and functions
 
@@ -610,13 +611,13 @@ RecordingConfig recordingConfig = new RecordingConfig(2000);
 UiConfig uiConfig = new UiConfig(false, false);
 SessionConfig sessionConfig = new SessionConfig(recordingConfig, uiConfig);
 
-UnisseyViewModel unisseyViewModel = 
+UnisseyViewModel unisseyViewModel =
         new ViewModelProvider(this,
                 UnisseyViewModel.Factory.create(SelfieFast.INSTANCE,
-                    sessionConfig,
-                    result -> {
+                        sessionConfig,
+                        result -> {
                         ...
-                    })
+                        })
         ).get(UnisseyViewModel.class);
 ```
 <!-- @formatter:on -->
