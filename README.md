@@ -107,7 +107,7 @@ In your app's `build.gradle` this time, add a dependency to the SDK like so:
 
 ```groovy
 dependencies {
-    implementation 'com.unissey:unissey-sdk:3.1.2'
+    implementation 'com.unissey:unissey-sdk:3.1.3'
 }
 ```
 
