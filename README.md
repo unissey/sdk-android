@@ -424,8 +424,9 @@ Here's what a `SessionConfig` is composed of:
 
 | Parameter name  | Type            | Description                                                     |
 |-----------------|-----------------|-----------------------------------------------------------------|
-| recordingConfig | RecordingConfig | A nested configuration object meant for technical configuration |
-| uiConfig        | UiConfig        | A nested configuration object meant for graphic configuration   |
+| recordingConfig | RecordingConfig | Responsible for additional video settings                       |
+| uiConfig        | UiConfig        | Responsible for graphic configuration                           |
+| iadConfig       | IadConfig       | Responsible for activating the IAD (Injection Attack Detection) |
 
 The `RecordingConfig`:
 
@@ -450,6 +451,15 @@ The `UiConfig`:
 | showVideoCaptureButton                | Boolean  | true                                | Specify whether to show the "Start" button on the video capture screen or not. This is mainly useful if you choose to enable auto-starting of the video capture, as explained in the [Auto-starting the video capture](#46-auto-starting-the-video-capture-when-the-cameras-ready) section |
 | showWideWindowPreviewInputsToTheRight | Boolean  | true                                | Specify whether the preview inputs should be displayed to the right of the camera preview or to the left in wide window mode (typically on phones in landscape mode)                                                                                                                       | 
 | buttonCornerRadius                    | Float?   | null (which leads to radius of 7dp) | Set the corner radius of the buttons present in the SDK's interfaces                                                                                                                                                                                                                       |
+
+The `IadConfig`:
+
+| Parameter name | Type    | Default value | Description                                                                  |
+|----------------|---------|---------------|------------------------------------------------------------------------------|
+| data           | String? | null          | The encrypted string received from a call to `/iad/prepare` on Unissey's API |
+
+See the [Enabling Injection Attack Detection (IAD)](#48-enabling-injection-attack-detection-iad)
+section to know how to enable this feature.
 
 ### 3.5 UnisseyViewModel's public variables and functions
 
@@ -611,13 +621,13 @@ RecordingConfig recordingConfig = new RecordingConfig(2000);
 UiConfig uiConfig = new UiConfig(false, false);
 SessionConfig sessionConfig = new SessionConfig(recordingConfig, uiConfig);
 
-UnisseyViewModel unisseyViewModel =
+UnisseyViewModel unisseyViewModel = 
         new ViewModelProvider(this,
                 UnisseyViewModel.Factory.create(SelfieFast.INSTANCE,
-                        sessionConfig,
-                        result -> {
+                    sessionConfig,
+                    result -> {
                         ...
-                        })
+                    })
         ).get(UnisseyViewModel.class);
 ```
 <!-- @formatter:on -->
