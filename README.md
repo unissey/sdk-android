@@ -3,7 +3,7 @@
 <!-- Using HTML notation instead of MD to prevent the TOC generation from picking up this header --> 
 <h1>Unissey Android SDK</h1>
 
-[![GitHub release (with filter)](https://img.shields.io/github/v/release/unissey/sdk-android)](https://github.com/unissey/sdk-android/packages/1234777)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.unissey/unissey-sdk)](https://central.sonatype.com/artifact/com.unissey/unissey-sdk/versions)
 
 This Android Library provides an easy way to obtain a video selfie to be used with Unissey's SaaS
 solution on an Android application. This SDK has been developed with Android Compose, allowing for
@@ -14,9 +14,6 @@ an easy integration on both Android Compose apps and traditional Android Views a
   * [1. Installation & requirements](#1-installation--requirements)
     * [1.1 Requirements](#11-requirements)
     * [1.2 Installation](#12-installation)
-      * [1.2.1 Get a GitHub personal access token](#121-get-a-github-personal-access-token)
-      * [1.2.2 Configure your repositories to include Unissey's package repository](#122-configure-your-repositories-to-include-unisseys-package-repository)
-      * [1.2.3 Add a dependency to Unissey's SDK in your application](#123-add-a-dependency-to-unisseys-sdk-in-your-application)
   * [2. Getting started](#2-getting-started)
     * [2.1 Overview](#21-overview)
     * [2.2 UnisseyViewModel](#22-unisseyviewmodel)
@@ -66,44 +63,8 @@ SDK.
 
 ### 1.2 Installation
 
-If you already a GitHub personal access token with the proper permissions, you can skip to the
-second step of the installation.
-
-#### 1.2.1 Get a GitHub personal access token
-
-First, you need to generate an access token by following the instructions
-provided [here](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
-by GitHub. Make sure to include at least the `repo` and `read:packages` permissions.
-
-Then, to gain access to Unissey's SDK, you need to contact the Unissey team and provide your GitHub
-account name.
-
-#### 1.2.2 Configure your repositories to include Unissey's package repository
-
-In your project's `settings.gradle`, add a repository entry pointing to our package repository using
-your GitHub personal token like so:
-
-```groovy
-dependencyResolutionManagement {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/unissey/sdk-android")
-            credentials {
-                username = System.getenv("<GITHUB_USERNAME_ENV_VARIABLE>")
-                password = System.getenv("<GITHUB_PERSONAL_ACCESS_TOKEN_ENV_VARIABLE>")
-            }
-        }
-    }
-}
-```
-
-You can of course choose to store your GitHub username and access token somewhere else than the
-environment variables.
-
-#### 1.2.3 Add a dependency to Unissey's SDK in your application
-
-In your app's `build.gradle` this time, add a dependency to the SDK like so:
+The Android SDK is available on the Maven Central repository.
+In your app's `build.gradle`, add a dependency to the SDK:
 
 ```groovy
 dependencies {
@@ -112,7 +73,7 @@ dependencies {
 ```
 
 **NOTE:** Make sure to use the latest version that can be
-found [here](https://github.com/unissey/sdk-android/packages/1234777).
+found [here](https://central.sonatype.com/artifact/com.unissey/unissey-sdk/versions).
 
 ## 2. Getting started
 
@@ -177,16 +138,16 @@ val unisseyViewModel: UnisseyViewModel by viewModels {
 ```java
 // In Java
 UnisseyViewModel unisseyViewModel = new ViewModelProvider(
-    this,
-    UnisseyViewModel.Factory.create(SelfieFast.INSTANCE, result -> {
-        // `result` contains the response or an error
-        // Just like in Kotlin, you can use the convenience functions or a more classic approach
-        SessionResponse response = result.getOrNull();
-        Log.d(
-            "UnisseySdk",
-            "Video record ended with file path: " + response.getVideoFilePath()
-        );
-    })
+        this,
+        UnisseyViewModel.Factory.create(SelfieFast.INSTANCE, result -> {
+            // `result` contains the response or an error
+            // Just like in Kotlin, you can use the convenience functions or a more classic approach
+            SessionResponse response = result.getOrNull();
+            Log.d(
+                    "UnisseySdk",
+                    "Video record ended with file path: " + response.getVideoFilePath()
+            );
+        })
 ).get(UnisseyViewModel.class);
 ```
 <!-- @formatter:on -->
@@ -621,13 +582,13 @@ RecordingConfig recordingConfig = new RecordingConfig(2000);
 UiConfig uiConfig = new UiConfig(false, false);
 SessionConfig sessionConfig = new SessionConfig(recordingConfig, uiConfig);
 
-UnisseyViewModel unisseyViewModel = 
+UnisseyViewModel unisseyViewModel =
         new ViewModelProvider(this,
                 UnisseyViewModel.Factory.create(SelfieFast.INSTANCE,
-                    sessionConfig,
-                    result -> {
+                        sessionConfig,
+                        result -> {
                         ...
-                    })
+                        })
         ).get(UnisseyViewModel.class);
 ```
 <!-- @formatter:on -->
