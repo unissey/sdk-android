@@ -68,7 +68,7 @@ In your app's `build.gradle`, add a dependency to the SDK:
 
 ```groovy
 dependencies {
-    implementation 'com.unissey:unissey-sdk:3.1.3'
+    implementation 'com.unissey:unissey-sdk:3.3.0'
 }
 ```
 
@@ -138,16 +138,16 @@ val unisseyViewModel: UnisseyViewModel by viewModels {
 ```java
 // In Java
 UnisseyViewModel unisseyViewModel = new ViewModelProvider(
-        this,
-        UnisseyViewModel.Factory.create(SelfieFast.INSTANCE, result -> {
-            // `result` contains the response or an error
-            // Just like in Kotlin, you can use the convenience functions or a more classic approach
-            SessionResponse response = result.getOrNull();
-            Log.d(
-                    "UnisseySdk",
-                    "Video record ended with file path: " + response.getVideoFilePath()
-            );
-        })
+    this,
+    UnisseyViewModel.Factory.create(SelfieFast.INSTANCE, result -> {
+        // `result` contains the response or an error
+        // Just like in Kotlin, you can use the convenience functions or a more classic approach
+        SessionResponse response = result.getOrNull();
+        Log.d(
+            "UnisseySdk",
+            "Video record ended with file path: " + response.getVideoFilePath()
+        );
+    })
 ).get(UnisseyViewModel.class);
 ```
 <!-- @formatter:on -->
@@ -408,6 +408,7 @@ The `UiConfig`:
 | Parameter name                        | Type     | Default value                       | Description                                                                                                                                                                                                                                                                                |
 |---------------------------------------|----------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | darkTheme                             | Boolean? | null                                | Specify whether to force the dark theme (if set to `true`), force a light theme (if set to `false`) or leave the decision to the user's system (if set to `null`)                                                                                                                          |
+| preferredLanguage                     | String?  | null                                | Used to force a given language instead of relying on the device's language. The value is the language code of the desired language. You can find a full list of valid language codes in the IANA Language Subtag Registry                                                                  |
 | showInstructions                      | Boolean  | true                                | Specify whether to show the first instructions screen or not                                                                                                                                                                                                                               |
 | showVideoCaptureButton                | Boolean  | true                                | Specify whether to show the "Start" button on the video capture screen or not. This is mainly useful if you choose to enable auto-starting of the video capture, as explained in the [Auto-starting the video capture](#46-auto-starting-the-video-capture-when-the-cameras-ready) section |
 | showWideWindowPreviewInputsToTheRight | Boolean  | true                                | Specify whether the preview inputs should be displayed to the right of the camera preview or to the left in wide window mode (typically on phones in landscape mode)                                                                                                                       | 
