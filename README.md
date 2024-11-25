@@ -68,7 +68,7 @@ In your app's `build.gradle`, add a dependency to the SDK:
 
 ```groovy
 dependencies {
-    implementation 'com.unissey:unissey-sdk:3.3.0'
+    implementation 'com.unissey:unissey-sdk:3.4.0'
 }
 ```
 
@@ -312,10 +312,10 @@ The present SDK provides presets defining how the video is recorded. Even if you
 its values, you must select a preset when creating an instance of `UnisseyViewModel`.
 Here are the 2 current possible values of `AcquisitionPreset`:
 
-| Preset name       | Recording duration | Video quality                                                      | Description                                                                                                                        |
-|-------------------|--------------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| SelfieFast        | 1 second           | 720p resolution, with a "HigherQualityThan(HD)"  fallback strategy | The preset that most use cases rely on. It provides the minimal configuration needed for Unissey's AI models to work at their best |
-| SelfieSubstantial | 3 seconds          | 720p resolution, with a "HigherQualityThan(HD)" fallback strategy  | The preset fit for use cases aiming for a PVID substantial compliance                                                              |
+| Preset name       | Recording duration | Video quality                                                             | Description                                                                                                                        |
+|-------------------|--------------------|---------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| SelfieFast        | 1 second           | 720p resolution, with a "LowerQualityOrHigherThan(HD)"  fallback strategy | The preset that most use cases rely on. It provides the minimal configuration needed for Unissey's AI models to work at their best |
+| SelfieSubstantial | 3 seconds          | 720p resolution, with a "HigherQualityThan(HD)" fallback strategy         | The preset fit for use cases aiming for a PVID substantial compliance                                                              |
 
 ### 3.2 OnRecordEndedListener
 
@@ -333,7 +333,7 @@ public interface OnRecordEndedListener {
 ```
 
 A `SessionResult` is a sealed class that can either be a `Success` enclosing a `SessionResponse`
-object or a `Failure` enclosing an `Exception`.
+object or a `Failure` enclosing a message and the `Exception` that occurred.
 
 The `SessionResponse`:
 
@@ -471,24 +471,32 @@ This SDK relies on Material 3 for theming. It provides a set of colors that can 
 Here's the exhaustive list of colors used in the SDK along with their default values corresponding
 to the Unissey color theme:
 
-| Key                                        | Default color value     |
-|--------------------------------------------|-------------------------|
-| unissey_theme_color_light_primary          | `#0A175C`               |
-| unissey_theme_color_light_onPrimary        | `#FFFFFF`               |
-| unissey_theme_color_light_secondary        | `#3D59E8`               |
-| unissey_theme_color_light_surface          | `#FFFBFE`               |
-| unissey_theme_color_light_onSurface        | `#1C1B1F`               |
-| unissey_theme_color_light_surfaceVariant   | `#F6F6F6`               |
-| unissey_theme_color_light_onSurfaceVariant | `#49454F`               |
-| unissey_theme_color_light_scrim            | `#FFFFFF` - 80% opacity |
-| unissey_theme_color_dark_primary           | `#3D59E8`               |
-| unissey_theme_color_dark_onPrimary         | `#FFFFFF`               |
-| unissey_theme_color_dark_secondary         | `#3D59E8`               |
-| unissey_theme_color_dark_surface           | `#1C1B1F`               |
-| unissey_theme_color_dark_onSurface         | `#E6E1E5`               |
-| unissey_theme_color_dark_surfaceVariant    | `#49454F`               |
-| unissey_theme_color_dark_onSurfaceVariant  | `#CAC4D0`               |
-| unissey_theme_color_dark_scrim             | `#000000` - 80% opacity |
+| Key                                          | Default color value     | Usage                                                                                                                       |
+|----------------------------------------------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| unissey_theme_color_light_primary            | `#0A175C`               | Buttons' background                                                                                                         |
+| unissey_theme_color_light_onPrimary          | `#FFFFFF`               | Text on buttons                                                                                                             |
+| unissey_theme_color_light_secondary          | `#3D59E8`               | Progress bar tint during recording, icon tint on the camera permission screen                                               |
+| unissey_theme_color_light_primaryContainer   | `#EADDFF`               | Loading circular progress bar background                                                                                    |
+| unissey_theme_color_light_onPrimaryContainer | `#21005D`               | Loading circular progress bar track                                                                                         |
+| unissey_theme_color_light_background         | `#FFFBFE`               | Screens' background                                                                                                         |
+| unissey_theme_color_light_onBackground       | `#1D1B20`               | Text directly on the background, including the title on the recording screen                                                |
+| unissey_theme_color_light_surface            | `#F6F6F6`               | Position indicator card's background                                                                                        |
+| unissey_theme_color_light_onSurface          | `#49454F`               | Text inside the position indicator card                                                                                     |
+| unissey_theme_color_light_surfaceVariant     | `#F6F6F6`               | Instructions cards' background                                                                                              |
+| unissey_theme_color_light_onSurfaceVariant   | `#49454F`               | Text inside the instructions cards                                                                                          |
+| unissey_theme_color_light_scrim              | `#FFFFFF` - 80% opacity | Overlay background. It's advised not to change it, especially with something colorful, as it could impact the PAD's results |
+| unissey_theme_color_dark_primary             | `#3D59E8`               | Buttons' background                                                                                                         |
+| unissey_theme_color_dark_onPrimary           | `#FFFFFF`               | Text on buttons                                                                                                             |
+| unissey_theme_color_dark_secondary           | `#3D59E8`               | Progress bar tint during recording                                                                                          |
+| unissey_theme_color_dark_primaryContainer    | `#4F378B`               | Loading circular progress bar background                                                                                    |
+| unissey_theme_color_dark_onPrimaryContainer  | `#EADDFF`               | Loading circular progress bar track                                                                                         |
+| unissey_theme_color_dark_background          | `#1C1B1F`               | Screens' background                                                                                                         |
+| unissey_theme_color_dark_onBackground        | `#E6E0E9`               | Text directly on the background, including the title on the recording screen                                                |
+| unissey_theme_color_dark_surface             | `#49454F`               | Position indicator card's background                                                                                        |
+| unissey_theme_color_dark_onSurface           | `#CAC4D0`               | Text inside the position indicator card                                                                                     |
+| unissey_theme_color_dark_surfaceVariant      | `#49454F`               | Instructions cards' background                                                                                              |
+| unissey_theme_color_dark_onSurfaceVariant    | `#CAC4D0`               | Text inside the instructions cards                                                                                          |
+| unissey_theme_color_dark_scrim               | `#000000` - 80% opacity | Overlay background. It's advised not to change it, especially with something colorful, as it could impact the PAD's results |
 
 ### 3.8 Images
 
@@ -583,13 +591,13 @@ RecordingConfig recordingConfig = new RecordingConfig(2000);
 UiConfig uiConfig = new UiConfig(false, false);
 SessionConfig sessionConfig = new SessionConfig(recordingConfig, uiConfig);
 
-UnisseyViewModel unisseyViewModel =
+UnisseyViewModel unisseyViewModel = 
         new ViewModelProvider(this,
                 UnisseyViewModel.Factory.create(SelfieFast.INSTANCE,
-                        sessionConfig,
-                        result -> {
+                    sessionConfig,
+                    result -> {
                         ...
-                        })
+                    })
         ).get(UnisseyViewModel.class);
 ```
 <!-- @formatter:on -->
