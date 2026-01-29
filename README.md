@@ -2,8 +2,8 @@
 
 # Unissey Android SDK
 
-[![Maven Central Version](https://img.shields.io/maven-central/v/com.unissey/unissey-headless-sdk)](https://central.sonatype.com/artifact/com.unissey/unissey-headless-sdk)
-[![Maven Central Version](https://img.shields.io/maven-central/v/com.unissey/unissey-sdk)](https://central.sonatype.com/artifact/com.unissey/unissey-sdk)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.unissey/unissey-headless-sdk?label=unissey-headless-sdk)](https://central.sonatype.com/artifact/com.unissey/unissey-headless-sdk)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.unissey/unissey-sdk?label=unissey-sdk)](https://central.sonatype.com/artifact/com.unissey/unissey-sdk)
 
 These sample applications are here to show you how to implement the Unissey SDKs (both headless and
 ui) correctly.
