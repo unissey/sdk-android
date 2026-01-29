@@ -1,7 +1,6 @@
 package com.unissey.samplecomposeapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -13,9 +12,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -31,46 +33,46 @@ fun VideoPlayerScreen(
     onRestartButtonClick: () -> Unit
 ) {
     val context = LocalContext.current
+    val windowInfo = LocalWindowInfo.current
 
-    val exoPlayer = ExoPlayer.Builder(LocalContext.current)
-        .build()
-        .also { exoPlayer ->
-            val mediaItem = MediaItem.Builder()
-                .setUri(videoUri)
-                .build()
-            exoPlayer.setMediaItem(mediaItem)
-            exoPlayer.prepare()
-        }
+    val exoPlayer = remember {
+        ExoPlayer.Builder(context)
+            .build()
+            .apply {
+                setMediaItem(MediaItem.fromUri(videoUri))
+                prepare()
+            }
+    }
 
-    DisposableEffect(Unit) {
+    DisposableEffect(exoPlayer) {
         onDispose {
             exoPlayer.release()
         }
     }
 
     Surface(modifier = modifier.fillMaxSize()) {
-        BoxWithConstraints {
-            val maxHeight = maxHeight
+        Column(
+            modifier = Modifier.verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val exoPlayerHeight = with(LocalDensity.current) {
+                (windowInfo.containerSize.height * 0.75f).toDp()
+            }
 
-            Column(
-                modifier = Modifier.verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                AndroidView(
-                    modifier = Modifier.height(maxHeight * 0.75f),
-                    factory = {
-                        PlayerView(context).apply {
-                            player = exoPlayer
-                        }
+            AndroidView(
+                modifier = Modifier.height(exoPlayerHeight),
+                factory = {
+                    PlayerView(context).apply {
+                        player = exoPlayer
                     }
-                )
-                Button(onClick = onRestartButtonClick) {
-                    Text(
-                        text = stringResource(R.string.restart).uppercase(),
-                        style = MaterialTheme.typography.labelMedium
-                    )
                 }
+            )
+            Button(onClick = onRestartButtonClick) {
+                Text(
+                    text = stringResource(R.string.restart).uppercase(),
+                    style = MaterialTheme.typography.labelMedium
+                )
             }
         }
     }

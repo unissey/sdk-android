@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -14,10 +15,11 @@ import androidx.compose.ui.Modifier
 import com.unissey.samplecomposeapp.ui.components.AppScaffold
 import com.unissey.samplecomposeapp.ui.screens.VideoPlayerScreen
 import com.unissey.samplecomposeapp.ui.theme.SampleAppTheme
-import com.unissey.sdk.model.SelfieFast
-import com.unissey.sdk.model.UnisseyPage
-import com.unissey.sdk.ui.screens.UnisseyScreen
-import com.unissey.sdk.ui.screens.UnisseyViewModel
+import com.unissey.sdk.core.model.AcquisitionPreset.SelfieFast
+import com.unissey.sdk.core.model.CameraEvent.VideoRecordEnded
+import com.unissey.sdk.ui.domain.UnisseyViewModel
+import com.unissey.sdk.ui.model.UnisseyPage
+import com.unissey.sdk.ui.ui.screens.UnisseyScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -28,16 +30,22 @@ class MainActivity : ComponentActivity() {
             var videoUri: String by rememberSaveable { mutableStateOf("") }
 
             val unisseyViewModel: UnisseyViewModel by viewModels {
-                UnisseyViewModel.Factory.create(
+                UnisseyViewModel.create(
                     SelfieFast
-                ) { result ->
-                    val response = result.getOrThrow()
+                )
+            }
 
-                    Log.d(
-                        "UnisseySampleApp",
-                        "Video record ended with file path: '${response.videoFilePath}'"
-                    )
-                    videoUri = response.videoFilePath
+            LaunchedEffect(unisseyViewModel) {
+                unisseyViewModel.cameraEvents.collect { event ->
+                    if (event is VideoRecordEnded) {
+                        val response = event.response
+
+                        Log.d(
+                            "UnisseySampleApp",
+                            "Video record ended with file path: '${response.videoFilePath}'"
+                        )
+                        videoUri = response.videoFilePath
+                    }
                 }
             }
 

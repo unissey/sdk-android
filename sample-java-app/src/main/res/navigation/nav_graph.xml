@@ -2,19 +2,36 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/unisseyFragment">
+    app:startDestination="@id/demoChoiceFragment">
 
     <fragment
-        android:id="@+id/unisseyFragment"
-        android:name="com.unissey.samplejavaapp.ui.UnisseyFragment"
-        android:label="UnisseyFragment">
+        android:id="@+id/demoChoiceFragment"
+        android:name="com.unissey.samplejavaapp.ui.fragments.DemoChoiceFragment">
         <action
-            android:id="@+id/action_unisseyFragment_to_videoPlayerFragment"
+            android:id="@+id/action_demoChoiceFragment_to_unisseyUiFragment"
+            app:destination="@id/unisseyUiFragment" />
+        <action
+            android:id="@+id/action_demoChoiceFragment_to_unisseyHeadlessFragment"
+            app:destination="@id/unisseyHeadlessFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/unisseyUiFragment"
+        android:name="com.unissey.samplejavaapp.ui.fragments.UnisseyUiFragment">
+        <action
+            android:id="@+id/action_unisseyUiFragment_to_videoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/unisseyHeadlessFragment"
+        android:name="com.unissey.samplejavaapp.ui.fragments.UnisseyHeadlessFragment">
+        <action
+            android:id="@+id/action_unisseyHeadlessFragment_to_videoPlayerFragment"
             app:destination="@id/videoPlayerFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/videoPlayerFragment"
-        android:name="com.unissey.samplejavaapp.ui.VideoPlayerFragment"
-        android:label="VideoPlayerFragment" />
+        android:name="com.unissey.samplejavaapp.ui.fragments.VideoPlayerFragment" />
 </navigation>

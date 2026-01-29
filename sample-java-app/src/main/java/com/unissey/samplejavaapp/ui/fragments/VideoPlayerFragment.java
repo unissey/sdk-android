@@ -1,32 +1,36 @@
-package com.unissey.samplejavaapp.ui;
+package com.unissey.samplejavaapp.ui.fragments;
+
+import static androidx.navigation.Navigation.findNavController;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.MediaController;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import com.unissey.samplejavaapp.R;
-import com.unissey.samplejavaapp.databinding.VideoPlayerFragmentBinding;
+import com.unissey.samplejavaapp.databinding.FragmentVideoPlayerBinding;
+import com.unissey.samplejavaapp.ui.SharedViewModel;
 
 public class VideoPlayerFragment extends Fragment {
 
-    @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-        VideoPlayerFragmentBinding binding =
-                VideoPlayerFragmentBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
+    private FragmentVideoPlayerBinding binding;
 
+    public VideoPlayerFragment() {
+        super(R.layout.fragment_video_player);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        binding = FragmentVideoPlayerBinding.bind(view);
         SharedViewModel sharedViewModel =
                 new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
         binding.videoView.setVideoPath(sharedViewModel.getVideoUri().getValue());
         MediaController mediaController = new MediaController(requireContext());
         binding.videoView.setMediaController(mediaController);
@@ -35,9 +39,13 @@ public class VideoPlayerFragment extends Fragment {
 
         binding.restartButton.setOnClickListener(button -> {
             sharedViewModel.setVideoUri("");
-            Navigation.findNavController(requireView()).setGraph(R.navigation.nav_graph);
+            findNavController(requireView()).popBackStack(R.id.demoChoiceFragment, false);
         });
+    }
 
-        return view;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

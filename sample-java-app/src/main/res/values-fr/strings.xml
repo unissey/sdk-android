@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="restart">Recommencer</string>
+    <string name="demo_with_ui_sdk">Démo avec SDK UI</string>
+    <string name="demo_with_headless_sdk">Démo avec SDK headless</string>
 </resources>
